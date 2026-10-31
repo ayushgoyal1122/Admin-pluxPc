@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased;
+    margin: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+  }
+}
+
+@layer components {
+
+  /* ── Containers ── */
+  .vx-container {
+    @apply max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ── Section headings (boAt style: "Top <u>Deals</u>") ── */
+  .vx-section-title {
+    @apply text-[22px] sm:text-2xl font-bold text-gray-900 leading-tight tracking-[-0.01em];
+  }
+
+  .vx-section-title span {
+    @apply underline decoration-volt-red decoration-2 underline-offset-4;
+  }
+
+  /* ── View All link ── */
+  .vx-view-all {
+    @apply text-sm font-medium text-blue-700 hover:underline flex items-center gap-1 whitespace-nowrap;
+  }
+
+  /* ── Product card (Option 2: Rounded Bottom Only experiment) ── */
+  /* Easy to revert: change `bg-[#F1F3F5] rounded-t-none rounded-b-[22px]` back to `bg-white rounded-lg` */
+  .vx-card {
+    @apply bg-[#F1F3F5] rounded-t-none rounded-b-[22px] border border-gray-200/70 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-pointer relative;
+  }
+
+  /* ── Badge pills ── */
+  .vx-badge {
+    @apply absolute top-2 left-2 z-10 bg-gray-900 text-white text-[10px] font-semibold px-2 py-0.5 rounded-sm flex items-center gap-1;
+  }
+
+  /* ── Feature strip inside product image ── */
+  .vx-feature-strip {
+    @apply absolute bottom-0 left-0 right-0 bg-volt-yellow text-gray-900 text-[11px] font-semibold px-3 py-1.5 flex items-center justify-between;
+  }
+
+  /* ── Tab pill (active/inactive) ── */
+  .vx-tab {
+    @apply px-4 py-1.5 text-sm font-medium rounded-full border transition-all duration-150 whitespace-nowrap cursor-pointer;
+  }
+
+  .vx-tab-active {
+    @apply bg-gray-900 text-white border-gray-900;
+  }
+
+  .vx-tab-inactive {
+    @apply bg-white text-gray-700 border-gray-300 hover:border-gray-500;
+  }
+
+  /* ── CTA buttons ── */
+  .btn-volt {
+    @apply bg-volt-red text-white font-semibold px-7 py-3 rounded text-sm hover:bg-red-700 active:scale-95 transition-all duration-150 inline-flex items-center gap-2;
+  }
+
+  .btn-volt-outline {
+    @apply border-2 border-white text-white font-semibold px-7 py-3 rounded text-sm hover:bg-white hover:text-gray-900 transition-all duration-150 inline-flex items-center gap-2;
+  }
+
+  /* ── Color dots ── */
+  .vx-color-dot {
+    @apply w-3.5 h-3.5 rounded-full border border-gray-300 cursor-pointer hover:scale-110 transition-transform;
+  }
+
+  /* ── Announcement bar ── */
+  .vx-announce {
+    @apply bg-gray-100 text-gray-700 text-[13px] text-center py-2 px-4;
+  }
+
+  /* ── Horizontal scroll container ── */
+  .vx-scroll {
+    @apply flex gap-4 overflow-x-auto pb-2;
+    scrollbar-width: none;
+  }
+
+  .vx-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ── Carousel arrow btn ── */
+  .vx-arrow {
+    @apply w-9 h-9 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center hover:bg-gray-50 active:scale-95 transition-all duration-150 flex-shrink-0 cursor-pointer;
+  }
+}
