@@ -218,7 +218,7 @@ export default function AdminPlatformFeePage() {
   };
 
   return (
-    <div className="p-6 sm:p-8 space-y-6 max-w-5xl mx-auto">
+    <div className="space-y-5 sm:space-y-6 max-w-5xl mx-auto">
       {/* ── Breadcrumb & Top Header ── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -227,11 +227,11 @@ export default function AdminPlatformFeePage() {
             <ChevronRight size={12} />
             <span className="text-gray-700">Platform Fee</span>
           </div>
-          <h1 className="text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2.5">
-            <Sliders size={24} className="text-volt-red" />
+          <h1 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight flex items-center gap-2 sm:gap-2.5 flex-wrap">
+            <Sliders size={22} className="text-volt-red flex-shrink-0" />
             <span>Platform Fee Management</span>
           </h1>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 mt-1 leading-relaxed">
             Configure order platform fees charged to customers across cart, checkout, and Razorpay transactions.
           </p>
         </div>
@@ -239,7 +239,7 @@ export default function AdminPlatformFeePage() {
         <button
           onClick={loadSettings}
           disabled={loading}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors shadow-2xs self-start sm:self-auto"
+          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors shadow-2xs self-start sm:self-auto cursor-pointer"
         >
           <RefreshCw size={13} className={loading ? "animate-spin text-volt-red" : ""} />
           <span>Reload</span>
@@ -272,22 +272,22 @@ export default function AdminPlatformFeePage() {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-6">
+      <form onSubmit={handleSave} className="space-y-5 sm:space-y-6">
         {/* ── Status Banner & Toggle ── */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-5">
-          <div className="flex items-start sm:items-center gap-3.5">
+        <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-5">
+          <div className="flex items-start gap-3 sm:gap-3.5 min-w-0">
             <div
-              className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
                 enabled ? "bg-emerald-100 text-emerald-700 shadow-2xs" : "bg-gray-100 text-gray-400"
               }`}
             >
-              <ShieldCheck size={24} />
+              <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <div className="flex items-center gap-2.5">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
                 <h3 className="text-sm font-bold text-gray-900">Platform Fee Status</h3>
                 <span
-                  className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full inline-flex items-center gap-1.5 ${
+                  className={`text-[10px] sm:text-[11px] font-black uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full inline-flex items-center gap-1.5 flex-shrink-0 ${
                     enabled
                       ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
                       : "bg-gray-100 text-gray-600 border border-gray-200"
@@ -301,7 +301,7 @@ export default function AdminPlatformFeePage() {
                   {enabled ? "ACTIVE / ENABLED" : "DISABLED"}
                 </span>
               </div>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                 {enabled
                   ? "Platform fee is actively applied to shopping carts, checkout, and payments."
                   : "Platform fee is currently turned off. Customers are charged ₹0.00."}
@@ -310,7 +310,7 @@ export default function AdminPlatformFeePage() {
           </div>
 
           {/* Clearly Visible Enable/Disable Toggle Switch Control */}
-          <div className="flex items-center gap-3 self-end sm:self-auto bg-gray-50 border border-gray-200/80 px-4 py-2.5 rounded-2xl">
+          <div className="flex items-center justify-between md:justify-end gap-3 w-full md:w-auto bg-gray-50 border border-gray-200/80 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl flex-shrink-0">
             <span className="text-xs font-bold text-gray-700 select-none">
               {enabled ? "Enabled" : "Disabled"}
             </span>
@@ -338,9 +338,9 @@ export default function AdminPlatformFeePage() {
         </div>
 
         {/* ── Main Configuration Grid ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
           {/* Settings Left Column */}
-          <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs space-y-6">
+          <div className="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-xs space-y-5 sm:space-y-6">
             <h2 className="text-base font-bold text-gray-900 pb-3 border-b border-gray-100 flex items-center gap-2">
               <span>Fee Calculation Rules</span>
             </h2>
@@ -350,22 +350,39 @@ export default function AdminPlatformFeePage() {
               <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2.5">
                 Fee Calculation Type
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <button
                   type="button"
                   onClick={() => setFeeType("fixed")}
-                  className={`p-4 rounded-xl border-2 text-left flex items-start gap-3 transition-all cursor-pointer ${
+                  className={`p-3.5 sm:p-4 rounded-xl border-2 text-left flex items-start gap-3 transition-all cursor-pointer w-full ${
                     feeType === "fixed"
-                      ? "border-volt-red bg-red-50/40 text-volt-red shadow-2xs"
-                      : "border-gray-200 hover:border-gray-300 bg-white text-gray-700"
+                      ? "border-volt-red bg-red-50/40 shadow-2xs ring-1 ring-volt-red/20"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
                   }`}
                 >
-                  <div className="p-2 rounded-lg bg-gray-100 text-gray-700 flex-shrink-0">
+                  <div
+                    className={`p-2 rounded-lg flex-shrink-0 transition-colors ${
+                      feeType === "fixed"
+                        ? "bg-red-100 text-volt-red font-bold"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
                     <DollarSign size={16} />
                   </div>
-                  <div>
-                    <span className="block text-xs font-black text-gray-900">Fixed Amount</span>
-                    <span className="block text-[11px] text-gray-500 mt-0.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className={`block text-xs font-black ${
+                        feeType === "fixed" ? "text-volt-red" : "text-gray-900"
+                      }`}>
+                        Fixed Amount
+                      </span>
+                      {feeType === "fixed" && (
+                        <span className="text-[10px] font-bold text-volt-red uppercase tracking-wider bg-white/80 border border-volt-red/30 px-1.5 py-0.5 rounded-md flex-shrink-0">
+                          Selected
+                        </span>
+                      )}
+                    </div>
+                    <span className="block text-[11px] text-gray-500 mt-1 leading-relaxed">
                       Charges a constant fee (e.g. ₹10) on every order.
                     </span>
                   </div>
@@ -374,18 +391,35 @@ export default function AdminPlatformFeePage() {
                 <button
                   type="button"
                   onClick={() => setFeeType("percentage")}
-                  className={`p-4 rounded-xl border-2 text-left flex items-start gap-3 transition-all cursor-pointer ${
+                  className={`p-3.5 sm:p-4 rounded-xl border-2 text-left flex items-start gap-3 transition-all cursor-pointer w-full ${
                     feeType === "percentage"
-                      ? "border-volt-red bg-red-50/40 text-volt-red shadow-2xs"
-                      : "border-gray-200 hover:border-gray-300 bg-white text-gray-700"
+                      ? "border-volt-red bg-red-50/40 shadow-2xs ring-1 ring-volt-red/20"
+                      : "border-gray-200 hover:border-gray-300 bg-white"
                   }`}
                 >
-                  <div className="p-2 rounded-lg bg-gray-100 text-gray-700 flex-shrink-0">
+                  <div
+                    className={`p-2 rounded-lg flex-shrink-0 transition-colors ${
+                      feeType === "percentage"
+                        ? "bg-red-100 text-volt-red font-bold"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
                     <Percent size={16} />
                   </div>
-                  <div>
-                    <span className="block text-xs font-black text-gray-900">Percentage (%)</span>
-                    <span className="block text-[11px] text-gray-500 mt-0.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className={`block text-xs font-black ${
+                        feeType === "percentage" ? "text-volt-red" : "text-gray-900"
+                      }`}>
+                        Percentage (%)
+                      </span>
+                      {feeType === "percentage" && (
+                        <span className="text-[10px] font-bold text-volt-red uppercase tracking-wider bg-white/80 border border-volt-red/30 px-1.5 py-0.5 rounded-md flex-shrink-0">
+                          Selected
+                        </span>
+                      )}
+                    </div>
+                    <span className="block text-[11px] text-gray-500 mt-1 leading-relaxed">
                       Charges a percentage of net eligible merchandise.
                     </span>
                   </div>
@@ -399,7 +433,7 @@ export default function AdminPlatformFeePage() {
                 {feeType === "fixed" ? "Fixed Fee Amount (₹)" : "Fee Percentage (%)"}{" "}
                 <span className="text-volt-red">*</span>
               </label>
-              <div className="relative max-w-sm">
+              <div className="relative w-full sm:max-w-sm">
                 <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xs">
                   {feeType === "fixed" ? "₹" : "%"}
                 </span>
@@ -415,7 +449,7 @@ export default function AdminPlatformFeePage() {
                   className="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-gray-200 text-xs font-bold text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors"
                 />
               </div>
-              <p className="text-[11px] text-gray-400 mt-1">
+              <p className="text-[11px] text-gray-400 mt-1 leading-relaxed">
                 {feeType === "fixed"
                   ? "Standard fixed rupee amount charged per order."
                   : "Calculated against merchandise subtotal after promo code and product discounts."}
@@ -424,13 +458,13 @@ export default function AdminPlatformFeePage() {
 
             {/* Percentage Constraints: Min Fee & Max Cap */}
             {feeType === "percentage" && (
-              <div className="p-4 rounded-xl bg-gray-50/80 border border-gray-200/80 space-y-4">
+              <div className="p-3.5 sm:p-4 rounded-xl bg-gray-50/80 border border-gray-200/80 space-y-4">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900">
-                  <Info size={14} className="text-volt-red" />
+                  <Info size={14} className="text-volt-red flex-shrink-0" />
                   <span>Optional Constraints for Percentage Fee</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-gray-700 mb-1">
                       Minimum Fee Floor (₹)
@@ -449,7 +483,7 @@ export default function AdminPlatformFeePage() {
                         className="w-full pl-8 pr-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 bg-white focus:outline-none focus:border-gray-900"
                       />
                     </div>
-                    <span className="text-[10px] text-gray-400 mt-0.5 block">
+                    <span className="text-[10px] text-gray-400 mt-0.5 block leading-relaxed">
                       Ensures small carts generate at least this fee.
                     </span>
                   </div>
@@ -472,7 +506,7 @@ export default function AdminPlatformFeePage() {
                         className="w-full pl-8 pr-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 bg-white focus:outline-none focus:border-gray-900"
                       />
                     </div>
-                    <span className="text-[10px] text-gray-400 mt-0.5 block">
+                    <span className="text-[10px] text-gray-400 mt-0.5 block leading-relaxed">
                       Protects high-value orders from excessive fees.
                     </span>
                   </div>
@@ -481,14 +515,14 @@ export default function AdminPlatformFeePage() {
             )}
 
             {/* Save Button */}
-            <div className="pt-2 flex items-center justify-between border-t border-gray-100">
+            <div className="pt-3 flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-3 border-t border-gray-100">
               <span className="text-[11px] text-gray-400">
                 Changes take effect immediately on active storefront carts.
               </span>
               <button
                 type="submit"
                 disabled={saving}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-volt-red text-white text-xs font-bold hover:bg-[#C9191E] disabled:bg-gray-400 transition-colors shadow-sm cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-volt-red text-white text-xs font-bold hover:bg-[#C9191E] disabled:bg-gray-400 transition-colors shadow-sm cursor-pointer w-full sm:w-auto"
               >
                 <Save size={14} />
                 <span>{saving ? "Saving Changes..." : "Save Settings"}</span>
@@ -497,14 +531,14 @@ export default function AdminPlatformFeePage() {
           </div>
 
           {/* Live Preview Right Column */}
-          <div className="space-y-6">
-            <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs space-y-4">
+          <div className="space-y-5 sm:space-y-6">
+            <div className="bg-white border border-gray-200 rounded-2xl p-4 sm:p-6 shadow-xs space-y-4">
               <div className="flex items-center gap-2 pb-3 border-b border-gray-100">
-                <TrendingUp size={16} className="text-volt-red" />
+                <TrendingUp size={16} className="text-volt-red flex-shrink-0" />
                 <h3 className="text-sm font-bold text-gray-900">Live Customer Preview</h3>
               </div>
 
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Test how the configured platform fee affects sample order subtotals:
               </p>
 
@@ -538,7 +572,7 @@ export default function AdminPlatformFeePage() {
               </div>
 
               {/* Sample calculation receipt */}
-              <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-2 text-xs">
+              <div className="p-3.5 sm:p-4 rounded-xl bg-gray-50 border border-gray-100 space-y-2 text-xs">
                 <div className="flex justify-between text-gray-600">
                   <span>Eligible Merchandise</span>
                   <span className="font-semibold text-gray-900">{formatPrice(previewNumericSubtotal)}</span>
@@ -574,7 +608,7 @@ export default function AdminPlatformFeePage() {
                 <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">
                   Quick Benchmark Tiers
                 </span>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                   {[499, 1499, 4999].map((amt) => {
                     const fee = computeFee(amt);
                     const isSelected = Number(simulatedSubtotal) === amt;
@@ -589,8 +623,8 @@ export default function AdminPlatformFeePage() {
                             : "border-gray-200 hover:border-gray-300 text-gray-700 bg-white"
                         }`}
                       >
-                        <span className="block text-[11px] font-bold">₹{amt}</span>
-                        <span className="block text-[10px] text-gray-500 font-mono mt-0.5">
+                        <span className="block text-[11px] font-bold truncate">₹{amt}</span>
+                        <span className="block text-[10px] text-gray-500 font-mono mt-0.5 truncate">
                           Fee: {formatPrice(fee)}
                         </span>
                       </button>
