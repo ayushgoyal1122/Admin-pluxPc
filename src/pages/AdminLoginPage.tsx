@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Lock, Mail, Eye, EyeOff, ShieldCheck, ArrowRight } from "lucide-react";
 import { useAdminAuth } from "../context/AdminAuthContext";
 
 export default function AdminLoginPage() {
   const { login, isAuthenticated } = useAdminAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,9 +16,11 @@ export default function AdminLoginPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/admin/dashboard", { replace: true });
+      const from = (location.state as any)?.from?.pathname;
+      const target = from && from !== "/admin/login" && from !== "/" ? from : "/admin/dashboard";
+      navigate(target, { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, location.state]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +35,9 @@ export default function AdminLoginPage() {
     try {
       const res = await login(email.trim(), password);
       if (res.success) {
-        navigate("/admin/dashboard", { replace: true });
+        const from = (location.state as any)?.from?.pathname;
+        const target = from && from !== "/admin/login" && from !== "/" ? from : "/admin/dashboard";
+        navigate(target, { replace: true });
       } else {
         setError(res.message || "Invalid email or password");
       }

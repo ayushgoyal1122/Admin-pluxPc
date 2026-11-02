@@ -12,11 +12,12 @@ export const DEFAULT_PRODUCTION_API_URL = "https://pluxpc-api.onrender.com";
  * - In development mode, fall back to "" to leverage Vite's local dev proxy (/api -> localhost:5000)
  */
 export function resolveBaseUrl(): string {
-  const envUrl = (import.meta.env.VITE_API_URL || "").trim();
+  const env = (typeof import.meta !== "undefined" && (import.meta as any).env) || {};
+  const envUrl = (env.VITE_API_URL || "").trim();
   if (envUrl) {
     return envUrl.replace(/\/+$/, "");
   }
-  if (import.meta.env.PROD) {
+  if (env.PROD) {
     return DEFAULT_PRODUCTION_API_URL;
   }
   return "";

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { Outlet, NavLink, Link, useNavigate, useLocation } from "react-router-dom";
+import { Outlet, NavLink, Link, useNavigate, useLocation, Navigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Package,
@@ -113,8 +113,7 @@ export default function AdminLayout() {
 
   // Enforce server-verified authentication
   if (!isAuthenticated) {
-    navigate("/admin/login", { replace: true, state: { from: location } });
-    return null;
+    return <Navigate to="/admin/login" replace state={{ from: location }} />;
   }
 
   const handleLogout = () => {

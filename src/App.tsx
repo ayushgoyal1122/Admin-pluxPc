@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AdminAuthProvider } from "./context/AdminAuthContext";
+import { AdminAuthProvider, useAdminAuth } from "./context/AdminAuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
@@ -11,39 +12,77 @@ import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminPromoCodesPage from "./pages/AdminPromoCodesPage";
 import AdminPlatformFeePage from "./pages/AdminPlatformFeePage";
 
+/**
+ * Root landing page resolver:
+ * - Unauthenticated users landing on "/" or root URL are directed to Admin Login.
+ * - Authenticated users with active sessions are directed to Admin Dashboard.
+ */
+export function RootRoute() {
+  const { isAuthenticated, isLoading } = useAdminAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#F5F6F8] flex items-center justify-center font-sans">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
+          <span className="text-gray-500 text-xs font-medium">Verifying admin session...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
+  return <Navigate to="/admin/login" replace />;
+}
+
+export function AppRoutes() {
+  return (
+    <Routes>
+      {/* Root landing page: Login for unauthenticated, Dashboard for authenticated */}
+      <Route path="/" element={<RootRoute />} />
+      <Route path="/login" element={<Navigate to="/admin/login" replace />} />
+      <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} />
+
+      {/* Dedicated Admin Login */}
+      <Route path="/admin/login" element={<AdminLoginPage />} />
+
+      {/* Protected Admin Routes */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Navigate to="/admin/dashboard" replace />} />
+        <Route path="dashboard" element={<AdminDashboardPage />} />
+        <Route path="products" element={<AdminProductsPage />} />
+        <Route path="products/new" element={<AdminProductFormPage />} />
+        <Route path="products/:id/edit" element={<AdminProductFormPage />} />
+        <Route path="categories" element={<AdminCategoriesPage />} />
+        <Route path="subcategories" element={<AdminSubCategoriesPage />} />
+        <Route path="orders" element={<AdminOrdersPage />} />
+        <Route path="promo-codes" element={<AdminPromoCodesPage />} />
+        <Route path="settings/platform-fee" element={<AdminPlatformFeePage />} />
+        <Route path="platform-fee" element={<Navigate to="/admin/settings/platform-fee" replace />} />
+      </Route>
+
+      {/* Catch-all redirect back to root resolver */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <AdminAuthProvider>
-        <Routes>
-          {/* Root and shortcut redirects */}
-          <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-          <Route path="/login" element={<Navigate to="/admin/login" replace />} />
-          <Route path="/dashboard" element={<Navigate to="/admin/dashboard" replace />} />
-
-          {/* Dedicated Admin Login */}
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-
-          {/* Protected Admin Routes */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/dashboard" replace />} />
-            <Route path="dashboard" element={<AdminDashboardPage />} />
-            <Route path="products" element={<AdminProductsPage />} />
-            <Route path="products/new" element={<AdminProductFormPage />} />
-            <Route path="products/:id/edit" element={<AdminProductFormPage />} />
-            <Route path="categories" element={<AdminCategoriesPage />} />
-            <Route path="subcategories" element={<AdminSubCategoriesPage />} />
-            <Route path="orders" element={<AdminOrdersPage />} />
-            <Route path="promo-codes" element={<AdminPromoCodesPage />} />
-            <Route path="settings/platform-fee" element={<AdminPlatformFeePage />} />
-            <Route path="platform-fee" element={<Navigate to="/admin/settings/platform-fee" replace />} />
-          </Route>
-
-          {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
-        </Routes>
+        <AppRoutes />
       </AdminAuthProvider>
     </BrowserRouter>
   );
 }
-

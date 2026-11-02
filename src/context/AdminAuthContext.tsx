@@ -32,7 +32,9 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return null;
     }
   });
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(() => {
+    return typeof window !== "undefined" && !!localStorage.getItem(TOKEN_KEY);
+  });
 
   const logout = useCallback(() => {
     setToken(null);
