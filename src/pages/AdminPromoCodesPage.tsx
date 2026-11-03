@@ -472,7 +472,7 @@ export default function AdminPromoCodesPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-[#BFC5CE] text-xs font-bold text-gray-700 hover:bg-gray-50 hover:border-[#111827] transition-colors shadow-xs"
           >
             <RefreshCw size={13} className={loading ? "animate-spin text-volt-red" : ""} />
             <span>Reload</span>
@@ -520,7 +520,7 @@ export default function AdminPromoCodesPage() {
 
       {/* ── Metrics Cards ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Campaigns</span>
             <div className="w-8 h-8 rounded-lg bg-red-50 text-volt-red flex items-center justify-center">
@@ -531,21 +531,21 @@ export default function AdminPromoCodesPage() {
           <p className="text-[11px] text-gray-500 mt-0.5">Configured promo codes</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Active Campaigns</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-red-50 text-[#E31E24] flex items-center justify-center">
               <CheckCircle2 size={16} />
             </div>
           </div>
-          <p className="text-2xl font-black text-emerald-700 mt-2">{metrics.active}</p>
+          <p className="text-2xl font-black text-[#E31E24] mt-2">{metrics.active}</p>
           <p className="text-[11px] text-gray-500 mt-0.5">Live on storefront</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Redemptions</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-900 flex items-center justify-center">
               <TrendingDown size={16} />
             </div>
           </div>
@@ -553,10 +553,10 @@ export default function AdminPromoCodesPage() {
           <p className="text-[11px] text-gray-500 mt-0.5">Total customer uses</p>
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Discounted SKUs</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center">
               <Layers size={16} />
             </div>
           </div>
@@ -566,7 +566,7 @@ export default function AdminPromoCodesPage() {
       </div>
 
       {/* ── Search & Filters Bar ── */}
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl p-4 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="relative flex-1 max-w-md">
           <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
@@ -574,7 +574,7 @@ export default function AdminPromoCodesPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search promotion name, promo code, or description..."
-            className="w-full pl-9 pr-4 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+            className="w-full pl-9 pr-4 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
           />
         </div>
 
@@ -587,7 +587,7 @@ export default function AdminPromoCodesPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-700 bg-white focus:outline-none focus:border-gray-900"
+            className="px-3 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-700 bg-white focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active Only</option>
@@ -600,7 +600,7 @@ export default function AdminPromoCodesPage() {
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-700 bg-white focus:outline-none focus:border-gray-900"
+            className="px-3 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-700 bg-white focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
           >
             <option value="all">All Discount Types</option>
             <option value="percentage">Percentage (%)</option>
@@ -610,7 +610,7 @@ export default function AdminPromoCodesPage() {
       </div>
 
       {/* ── Promotions Table ── */}
-      <div className="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl shadow-2xs overflow-hidden">
         {loading ? (
           <div className="p-12 text-center text-xs text-gray-500 animate-pulse space-y-2">
             <RefreshCw size={24} className="animate-spin mx-auto text-volt-red mb-2" />
@@ -639,7 +639,7 @@ export default function AdminPromoCodesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-gray-50/70 border-b border-gray-200 text-gray-500 uppercase tracking-wider font-bold text-[10px]">
+                <tr className="bg-gray-50/70 border-b border-[#BFC5CE] text-gray-500 uppercase tracking-wider font-bold text-[10px]">
                   <th className="py-3.5 px-4">Campaign & Code</th>
                   <th className="py-3.5 px-4">Discount</th>
                   <th className="py-3.5 px-4">Applies To</th>
@@ -649,7 +649,7 @@ export default function AdminPromoCodesPage() {
                   <th className="py-3.5 px-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-[#D1D5DB]">
                 {filteredPromotions.map((promo) => {
                   const now = new Date();
                   const isExpired = promo.endDate ? new Date(promo.endDate) < now : false;
@@ -663,7 +663,7 @@ export default function AdminPromoCodesPage() {
                           <button
                             onClick={() => handleCopyCode(promo.code)}
                             title="Click to copy promo code"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg font-mono font-black text-xs bg-gray-100 text-gray-900 border border-gray-200 hover:bg-gray-200 transition-colors"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg font-mono font-black text-xs bg-gray-100 text-gray-900 border border-[#BFC5CE] hover:bg-gray-200 transition-colors"
                           >
                             <span>{promo.code}</span>
                             <Copy size={11} className="text-gray-500" />
@@ -678,12 +678,12 @@ export default function AdminPromoCodesPage() {
                       {/* Discount Type & Value */}
                       <td className="py-3.5 px-4">
                         {promo.discountType === "percentage" ? (
-                          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-red-50 text-[#E31E24] border border-red-200">
                             <Percent size={11} />
                             <span>{promo.discountValue}% OFF</span>
                           </div>
                         ) : (
-                          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-blue-50 text-blue-700 border border-blue-200">
+                          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-gray-100 text-gray-800 border border-[#BFC5CE]">
                             <span>₹{promo.discountValue} OFF</span>
                           </div>
                         )}
@@ -695,7 +695,7 @@ export default function AdminPromoCodesPage() {
                       {/* Applies To */}
                       <td className="py-3.5 px-4">
                         {promo.appliesTo === "all" ? (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-purple-50 text-purple-700 border border-purple-200">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-gray-100 text-gray-800 border border-[#BFC5CE]">
                             Storewide (All)
                           </span>
                         ) : (
@@ -756,7 +756,7 @@ export default function AdminPromoCodesPage() {
                                 onClick={() => handleToggle(promo)}
                                 title={promo.isActive ? "Click to deactivate" : "Click to activate"}
                                 className={`relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                                  promo.isActive ? "bg-emerald-600" : "bg-gray-300"
+                                  promo.isActive ? "bg-[#E31E24]" : "bg-gray-300"
                                 }`}
                               >
                                 <span
@@ -775,7 +775,7 @@ export default function AdminPromoCodesPage() {
                                   Scheduled
                                 </span>
                               ) : promo.isActive ? (
-                                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                                <span className="text-[10px] font-bold text-[#E31E24] bg-red-50 px-2 py-0.5 rounded">
                                   Active
                                 </span>
                               ) : (
@@ -796,7 +796,7 @@ export default function AdminPromoCodesPage() {
                               onClick={() => handleRestore(promo)}
                               disabled={restoringId === (promo._id || promo.id)}
                               title="Restore Campaign"
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-bold transition-colors"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-gray-900 bg-gray-100 hover:bg-gray-200 border border-[#BFC5CE] text-xs font-bold transition-colors"
                             >
                               <RotateCcw size={12} className={restoringId === (promo._id || promo.id) ? "animate-spin" : ""} />
                               <span>Restore</span>
@@ -806,14 +806,14 @@ export default function AdminPromoCodesPage() {
                               <button
                                 onClick={() => handleOpenEdit(promo)}
                                 title="Edit Promotion"
-                                className="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                                className="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 border border-transparent hover:border-[#BFC5CE] transition-colors"
                               >
                                 <Edit size={14} />
                               </button>
                               <button
                                 onClick={() => setDeleteTarget(promo)}
                                 title="Archive Promotion"
-                                className="p-1.5 rounded-lg text-gray-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                                className="p-1.5 rounded-lg text-gray-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 transition-colors"
                               >
                                 <Archive size={14} />
                               </button>
@@ -833,8 +833,8 @@ export default function AdminPromoCodesPage() {
       {/* ── CREATE / EDIT PROMOTION MODAL ── */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-200 rounded-3xl max-w-3xl w-full p-6 sm:p-7 shadow-xl space-y-6 max-h-[92vh] overflow-y-auto animate-scaleIn">
-            <div className="flex items-center justify-between pb-4 border-b border-gray-100">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl max-w-3xl w-full p-6 sm:p-7 shadow-xl space-y-6 max-h-[92vh] overflow-y-auto animate-scaleIn">
+            <div className="flex items-center justify-between pb-4 border-b border-[#C5C9D0]">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-xl bg-red-50 text-volt-red flex items-center justify-center">
                   <Tag size={16} />
@@ -876,7 +876,7 @@ export default function AdminPromoCodesPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Festive Diwali Sale"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                 </div>
 
@@ -890,7 +890,7 @@ export default function AdminPromoCodesPage() {
                     value={code}
                     onChange={(e) => setCode(e.target.value.toUpperCase().replace(/\s+/g, ""))}
                     placeholder="e.g. PLUXPC20"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs font-mono font-bold text-gray-900 uppercase focus:outline-none focus:border-gray-900"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-[#BFC5CE] text-xs font-mono font-bold text-gray-900 uppercase focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                   <p className="text-[10px] text-gray-400 mt-1">Customers enter this at checkout or view it on cards.</p>
                 </div>
@@ -906,12 +906,12 @@ export default function AdminPromoCodesPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="e.g. Get 20% off on all wireless audio and charging gear."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
               {/* Discount Type & Value (Phase 2 requirement) */}
-              <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200/80 space-y-4">
+              <div className="p-4 rounded-xl bg-gray-50 border border-[#BFC5CE] space-y-4">
                 <span className="text-xs font-bold text-gray-800 block">Discount Configuration</span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -923,10 +923,10 @@ export default function AdminPromoCodesPage() {
                       <button
                         type="button"
                         onClick={() => setDiscountType("percentage")}
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-colors flex items-center justify-center gap-1.5 ${
+                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
                           discountType === "percentage"
                             ? "bg-gray-900 text-white border-gray-900 shadow-xs"
-                            : "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
+                            : "bg-white text-gray-700 border-[#BFC5CE] hover:bg-gray-100"
                         }`}
                       >
                         <Percent size={13} />
@@ -936,10 +936,10 @@ export default function AdminPromoCodesPage() {
                       <button
                         type="button"
                         onClick={() => setDiscountType("fixed")}
-                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-colors flex items-center justify-center gap-1.5 ${
+                        className={`py-2 px-3 rounded-xl text-xs font-bold border transition-colors flex items-center justify-center gap-1.5 cursor-pointer ${
                           discountType === "fixed"
                             ? "bg-gray-900 text-white border-gray-900 shadow-xs"
-                            : "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
+                            : "bg-white text-gray-700 border-[#BFC5CE] hover:bg-gray-100"
                         }`}
                       >
                         <span>₹ Fixed Amount</span>
@@ -964,7 +964,7 @@ export default function AdminPromoCodesPage() {
                           setDiscountValue(e.target.value === "" ? "" : Number(e.target.value))
                         }
                         placeholder={discountType === "percentage" ? "e.g. 20" : "e.g. 300"}
-                        className="w-full pl-3.5 pr-8 py-2.5 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900 bg-white"
+                        className="w-full pl-3.5 pr-8 py-2.5 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] bg-white"
                       />
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-xs">
                         {discountType === "percentage" ? "%" : "₹"}
@@ -974,7 +974,7 @@ export default function AdminPromoCodesPage() {
                 </div>
 
                 {discountType === "percentage" && (
-                  <div className="pt-2 border-t border-gray-200/60">
+                  <div className="pt-2 border-t border-[#D1D5DB]">
                     <label className="block text-[11px] font-semibold text-gray-500 mb-1">
                       Max Discount Cap in INR (Optional)
                     </label>
@@ -986,7 +986,7 @@ export default function AdminPromoCodesPage() {
                         setMaxDiscountAmount(e.target.value === "" ? "" : Number(e.target.value))
                       }
                       placeholder="e.g. 1000 (limits 20% off to maximum ₹1,000)"
-                      className="w-full sm:w-1/2 px-3.5 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 bg-white focus:outline-none focus:border-gray-900"
+                      className="w-full sm:w-1/2 px-3.5 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 bg-white focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                     />
                   </div>
                 )}
@@ -1022,7 +1022,7 @@ export default function AdminPromoCodesPage() {
                 </div>
 
                 {appliesTo === "specific" && (
-                  <div className="p-3.5 rounded-2xl border border-gray-200 bg-gray-50/50 space-y-3">
+                  <div className="p-3.5 rounded-xl border border-[#BFC5CE] bg-gray-50/50 space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="relative flex-1 max-w-xs">
                         <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -1031,7 +1031,7 @@ export default function AdminPromoCodesPage() {
                           value={modalProductSearch}
                           onChange={(e) => setModalProductSearch(e.target.value)}
                           placeholder="Search products to add..."
-                          className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-gray-200 text-xs bg-white focus:outline-none focus:border-gray-900"
+                          className="w-full pl-8 pr-3 py-1.5 rounded-lg border border-[#BFC5CE] text-xs bg-white focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                         />
                       </div>
 
@@ -1042,14 +1042,14 @@ export default function AdminPromoCodesPage() {
                         <button
                           type="button"
                           onClick={handleSelectAllFiltered}
-                          className="px-2 py-1 rounded bg-gray-200 text-gray-700 text-[11px] font-bold hover:bg-gray-300"
+                          className="px-2 py-1 rounded bg-gray-200 text-gray-700 text-[11px] font-bold border border-[#BFC5CE] hover:bg-gray-300"
                         >
                           Select Filtered
                         </button>
                         <button
                           type="button"
                           onClick={handleClearAllSelected}
-                          className="px-2 py-1 rounded bg-gray-200 text-gray-700 text-[11px] font-bold hover:bg-gray-300"
+                          className="px-2 py-1 rounded bg-gray-200 text-gray-700 text-[11px] font-bold border border-[#BFC5CE] hover:bg-gray-300"
                         >
                           Clear
                         </button>
@@ -1057,7 +1057,7 @@ export default function AdminPromoCodesPage() {
                     </div>
 
                     {/* Products Checklist */}
-                    <div className="max-h-52 overflow-y-auto divide-y divide-gray-100 bg-white rounded-xl border border-gray-200 p-1">
+                    <div className="max-h-52 overflow-y-auto divide-y divide-[#D1D5DB] bg-white rounded-xl border border-[#BFC5CE] p-1">
                       {modalAvailableProducts.map((p) => {
                         const isSelected = selectedProductIds.includes(p.id);
                         return (
@@ -1077,7 +1077,7 @@ export default function AdminPromoCodesPage() {
                               <img
                                 src={p.imageUrl}
                                 alt={p.name}
-                                className="w-8 h-8 rounded-md object-cover border border-gray-100 flex-shrink-0"
+                                className="w-8 h-8 rounded-md object-cover border border-[#BFC5CE] flex-shrink-0"
                               />
                               <div className="min-w-0">
                                 <p className="text-xs font-bold text-gray-900 truncate">{p.name}</p>
@@ -1097,13 +1097,13 @@ export default function AdminPromoCodesPage() {
 
               {/* ── LIVE DISCOUNT PREVIEW CARD (Phase 11 Requirement) ── */}
               {livePreviewItems.length > 0 && (
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-50/80 to-teal-50/40 border border-emerald-200/80 space-y-3">
+                <div className="p-4 rounded-xl bg-red-50/40 border border-[#BFC5CE] space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-extrabold text-emerald-900 flex items-center gap-1.5">
-                      <TrendingDown size={14} className="text-emerald-600" />
+                    <span className="text-xs font-extrabold text-gray-900 flex items-center gap-1.5">
+                      <TrendingDown size={14} className="text-[#E31E24]" />
                       <span>Live Discount Preview (Sample Calculations)</span>
                     </span>
-                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-[#E31E24] bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">
                       Real-time Calculation
                     </span>
                   </div>
@@ -1112,15 +1112,15 @@ export default function AdminPromoCodesPage() {
                     {livePreviewItems.map((item) => (
                       <div
                         key={item.id}
-                        className="p-2.5 rounded-xl bg-white border border-emerald-100 shadow-2xs space-y-1"
+                        className="p-2.5 rounded-xl bg-white border border-[#BFC5CE] shadow-2xs space-y-1"
                       >
                         <p className="font-bold text-gray-900 text-[11px] truncate">{item.name}</p>
-                        <div className="flex items-baseline justify-between text-xs pt-1 border-t border-gray-100">
+                        <div className="flex items-baseline justify-between text-xs pt-1 border-t border-[#D1D5DB]">
                           <span className="text-gray-400 line-through text-[11px]">{formatPrice(item.price)}</span>
-                          <span className="text-xs font-black text-emerald-700">
+                          <span className="text-xs font-black text-[#E31E24]">
                             {formatPrice(item.discountedPrice)}
                           </span>
-                          <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                          <span className="text-[10px] font-bold text-[#E31E24] bg-red-50 border border-red-200 px-1.5 py-0.5 rounded">
                             Save {formatPrice(item.discount)} ({item.savingsPercent}%)
                           </span>
                         </div>
@@ -1138,7 +1138,7 @@ export default function AdminPromoCodesPage() {
                     type="datetime-local"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900"
+                    className="w-full px-3.5 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                 </div>
 
@@ -1160,7 +1160,7 @@ export default function AdminPromoCodesPage() {
                     disabled={noExpiry}
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 disabled:bg-gray-100 focus:outline-none focus:border-gray-900"
+                    className="w-full px-3.5 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 disabled:bg-gray-100 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                 </div>
               </div>
@@ -1179,7 +1179,7 @@ export default function AdminPromoCodesPage() {
                       setMinPurchaseAmount(e.target.value === "" ? "" : Number(e.target.value))
                     }
                     placeholder="0 = No minimum"
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900"
+                    className="w-full px-3 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                 </div>
 
@@ -1195,7 +1195,7 @@ export default function AdminPromoCodesPage() {
                       setMaxUsageLimit(e.target.value === "" ? "" : Number(e.target.value))
                     }
                     placeholder="e.g. 500 (blank = ∞)"
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900"
+                    className="w-full px-3 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                 </div>
 
@@ -1211,13 +1211,13 @@ export default function AdminPromoCodesPage() {
                       setPerCustomerLimit(e.target.value === "" ? "" : Number(e.target.value))
                     }
                     placeholder="Default 1"
-                    className="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-gray-900"
+                    className="w-full px-3 py-2 rounded-xl border border-[#BFC5CE] text-xs text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                   />
                 </div>
               </div>
 
               {/* Active Toggle */}
-              <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+              <div className="flex items-center gap-2 pt-2 border-t border-[#C5C9D0]">
                 <input
                   type="checkbox"
                   id="isActive"
@@ -1231,18 +1231,18 @@ export default function AdminPromoCodesPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#C5C9D0]">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold hover:bg-gray-200 transition-colors"
+                  className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold border border-[#BFC5CE] hover:bg-gray-200 transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-6 py-2.5 rounded-xl bg-volt-red text-white text-xs font-bold hover:bg-[#C9191E] disabled:bg-gray-400 transition-colors shadow-sm"
+                  className="px-6 py-2.5 rounded-xl bg-volt-red text-white text-xs font-bold hover:bg-[#C9191E] disabled:bg-gray-400 transition-colors shadow-sm cursor-pointer"
                 >
                   {saving ? "Saving..." : editingPromo ? "Update Promotion" : "Create Promotion"}
                 </button>
@@ -1255,8 +1255,8 @@ export default function AdminPromoCodesPage() {
       {/* ── ARCHIVE CONFIRMATION SAFETY MODAL ── */}
       {deleteTarget && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-200 rounded-3xl max-w-md w-full p-6 text-center space-y-4 shadow-xl animate-scaleIn">
-            <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-xl animate-scaleIn">
+            <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center mx-auto">
               <Archive size={22} />
             </div>
             <div>
@@ -1266,7 +1266,7 @@ export default function AdminPromoCodesPage() {
                 <strong className="text-gray-900 font-mono">{deleteTarget.code}</strong> (
                 {deleteTarget.name})?
               </p>
-              <div className="mt-3 p-3 bg-gray-50 rounded-xl text-left space-y-1.5 border border-gray-100">
+              <div className="mt-3 p-3 bg-gray-50 rounded-xl text-left space-y-1.5 border border-[#BFC5CE]">
                 <p className="text-[11px] text-gray-600">
                   • The promo code will be deactivated immediately and excluded from storefront promos, cart validation, and checkout.
                 </p>
@@ -1284,7 +1284,7 @@ export default function AdminPromoCodesPage() {
                 type="button"
                 onClick={() => setDeleteTarget(null)}
                 disabled={deleting}
-                className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold hover:bg-gray-200"
+                className="px-5 py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-bold border border-[#BFC5CE] hover:bg-gray-200 cursor-pointer"
               >
                 Cancel
               </button>
@@ -1292,7 +1292,7 @@ export default function AdminPromoCodesPage() {
                 type="button"
                 onClick={handleDeleteConfirm}
                 disabled={deleting}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-rose-600 text-white text-xs font-bold hover:bg-rose-700 disabled:bg-gray-400"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-rose-600 text-white text-xs font-bold hover:bg-rose-700 disabled:bg-gray-400 cursor-pointer"
               >
                 <Archive size={14} />
                 <span>{deleting ? "Archiving..." : "Archive Promotion"}</span>

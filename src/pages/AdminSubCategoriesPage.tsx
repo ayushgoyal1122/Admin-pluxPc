@@ -263,11 +263,11 @@ export default function AdminSubCategoriesPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-sans pb-12">
       {/* ── Top Header Card (Manage Sub Categories) ── */}
-      <div className="bg-white border border-gray-200 rounded-xl px-6 py-5 flex items-center justify-between shadow-xs">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl px-6 py-5 flex items-center justify-between shadow-2xs">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
           Manage Sub Categories
         </h1>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-xs shadow-2xs">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#BFC5CE] bg-white text-xs shadow-2xs">
           <span className="font-extrabold text-[#E31E24] text-sm">{subCategories.length}</span>
           <span className="text-gray-500 font-medium">Total Sub Categories</span>
         </div>
@@ -297,9 +297,9 @@ export default function AdminSubCategoriesPage() {
       )}
 
       {/* ── Main Subcategories Container Card ── */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-visible">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl shadow-2xs overflow-visible">
         {/* Top Search Bar & Add Sub Category Button */}
-        <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200">
+        <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#C5C9D0]">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1 max-w-2xl">
             <div className="relative flex-1">
               <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -308,7 +308,7 @@ export default function AdminSubCategoriesPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search sub category..."
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#BFC5CE] rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] transition-colors"
               />
             </div>
 
@@ -317,7 +317,7 @@ export default function AdminSubCategoriesPage() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-3 py-2.5 text-xs bg-white border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 cursor-pointer"
+                className="w-full px-3 py-2.5 text-xs bg-white border border-[#BFC5CE] rounded-lg text-gray-700 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] cursor-pointer"
               >
                 <option value="">All Categories</option>
                 {categories.map((c) => (
@@ -333,7 +333,7 @@ export default function AdminSubCategoriesPage() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as any)}
-                className="w-full px-3 py-2.5 text-xs bg-white border border-gray-300 rounded-lg text-gray-800 font-semibold focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 cursor-pointer"
+                className="w-full px-3 py-2.5 text-xs bg-white border border-[#BFC5CE] rounded-lg text-gray-800 font-semibold focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] cursor-pointer"
               >
                 <option value="active">Active Only</option>
                 <option value="archived">Archived Only</option>
@@ -371,7 +371,7 @@ export default function AdminSubCategoriesPage() {
         ) : (
           <div className="overflow-x-auto min-h-[460px]">
             <table className="w-full text-left text-sm text-gray-800">
-              <thead className="bg-white border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+              <thead className="bg-white border-b border-[#BFC5CE] text-[11px] font-bold text-gray-600 uppercase tracking-wider">
                 <tr>
                   <th className="px-6 py-4 w-16 text-center sm:text-left">S.NO.</th>
                   <th className="px-6 py-4 w-36">ACTION</th>
@@ -381,32 +381,47 @@ export default function AdminSubCategoriesPage() {
                   <th className="px-6 py-4 text-right pr-8">CREATED DATE & TIME</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 text-sm">
-                {filteredSubCategories.map((sc, idx) => (
-                  <tr key={sc.id} className="hover:bg-gray-50/80 transition-colors">
-                    {/* S.NO. */}
-                    <td className="px-6 py-4.5 font-bold text-gray-900 text-sm">
-                      {idx + 1}
-                    </td>
+              <tbody className="divide-y divide-[#D1D5DB] text-sm">
+                {filteredSubCategories.map((sc, idx) => {
+                  const isDropup = idx >= 2 && idx >= filteredSubCategories.length - 3;
+                  return (
+                    <tr
+                      key={sc.id}
+                      className={`hover:bg-gray-50/80 transition-colors ${
+                        openActionId === sc.id ? "relative z-30" : ""
+                      }`}
+                    >
+                      {/* S.NO. */}
+                      <td className="px-6 py-4.5 font-bold text-gray-900 text-sm">
+                        {idx + 1}
+                      </td>
 
-                    {/* ACTION Dropdown Button */}
-                    <td className="px-6 py-4.5">
-                      <div className="relative action-menu-container inline-block text-left">
-                        <button
-                          type="button"
-                          onClick={() => setOpenActionId(openActionId === sc.id ? null : sc.id)}
-                          className="bg-[#E31E24] hover:bg-[#C9191E] text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
+                      {/* ACTION Dropdown Button */}
+                      <td className="px-6 py-4.5">
+                        <div
+                          className={`relative action-menu-container inline-block text-left ${
+                            openActionId === sc.id ? "z-50" : ""
+                          }`}
                         >
-                          <span>Action</span>
-                          <ChevronDown
-                            size={14}
-                            className={openActionId === sc.id ? "rotate-180 transition-transform" : "transition-transform"}
-                          />
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => setOpenActionId(openActionId === sc.id ? null : sc.id)}
+                            className="bg-[#E31E24] hover:bg-[#C9191E] text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
+                          >
+                            <span>Action</span>
+                            <ChevronDown
+                              size={14}
+                              className={openActionId === sc.id ? "rotate-180 transition-transform" : "transition-transform"}
+                            />
+                          </button>
 
-                        {/* Floating Action Dropdown Menu */}
-                        {openActionId === sc.id && (
-                          <div className="absolute left-0 top-full mt-1.5 w-36 bg-white border border-gray-200 rounded-xl shadow-xl py-1 z-40 divide-y divide-gray-100">
+                          {/* Floating Action Dropdown Menu */}
+                          {openActionId === sc.id && (
+                            <div
+                              className={`absolute left-0 ${
+                                isDropup ? "bottom-full mb-1.5" : "top-full mt-1.5"
+                              } w-36 bg-white border border-[#BFC5CE] rounded-xl shadow-xl py-1 z-50 divide-y divide-[#D1D5DB]`}
+                            >
                             <div className="py-1">
                               {!sc.isDeleted && (
                                 <a
@@ -467,7 +482,7 @@ export default function AdminSubCategoriesPage() {
 
                     {/* ICON (Rounded Square Tile like Image Reference) */}
                     <td className="px-6 py-4.5">
-                      <div className="w-12 h-12 rounded-xl bg-[#F8FAFC] border border-gray-200/90 flex items-center justify-center p-1 shadow-xs mx-auto sm:mx-0 flex-shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-[#F8FAFC] border border-[#BFC5CE] flex items-center justify-center p-1 shadow-xs mx-auto sm:mx-0 flex-shrink-0">
                         <img
                           src={sc.imageUrl}
                           alt={sc.name}
@@ -491,9 +506,9 @@ export default function AdminSubCategoriesPage() {
                       </div>
                     </td>
 
-                    {/* CATEGORY (Parent Category Badge matching reference image) */}
+                    {/* CATEGORY (Parent Category Badge matching brand theme) */}
                     <td className="px-6 py-4.5">
-                      <span className="text-xs font-bold text-[#2563EB] tracking-wider uppercase">
+                      <span className="text-xs font-bold text-[#E31E24] tracking-wider uppercase">
                         {sc.categoryName || sc.category.toUpperCase()}
                       </span>
                     </td>
@@ -505,7 +520,8 @@ export default function AdminSubCategoriesPage() {
                       </span>
                     </td>
                   </tr>
-                ))}
+                );
+              })}
               </tbody>
             </table>
           </div>
@@ -515,8 +531,8 @@ export default function AdminSubCategoriesPage() {
       {/* ── Add / Edit Sub Category Modal ── */}
       {modalMode && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-300 rounded-2xl p-6 max-w-lg w-full shadow-2xl">
-            <div className="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl p-6 max-w-lg w-full shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#C5C9D0] pb-4 mb-4">
               <h3 className="text-base font-bold text-gray-900">
                 {modalMode === "create" ? "Add Sub Category" : `Edit "${activeSubCat?.name}"`}
               </h3>
@@ -542,7 +558,7 @@ export default function AdminSubCategoriesPage() {
                   }}
                   placeholder="e.g. Active Noise Cancelling Earbuds"
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
@@ -554,7 +570,7 @@ export default function AdminSubCategoriesPage() {
                   value={formCategory}
                   onChange={(e) => setFormCategory(e.target.value)}
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 cursor-pointer"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] cursor-pointer"
                 >
                   {categories.map((c) => (
                     <option key={c.id} value={c.slug}>
@@ -574,7 +590,7 @@ export default function AdminSubCategoriesPage() {
                   onChange={(e) => setFormSlug(e.target.value)}
                   placeholder="anc-earbuds"
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 font-mono focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 font-mono focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
@@ -588,7 +604,7 @@ export default function AdminSubCategoriesPage() {
                   onChange={(e) => setFormImageUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
@@ -601,16 +617,16 @@ export default function AdminSubCategoriesPage() {
                   onChange={(e) => setFormDesc(e.target.value)}
                   placeholder="Brief merchandising description..."
                   rows={3}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#C5C9D0]">
                 <button
                   type="button"
                   onClick={() => setModalMode(null)}
                   disabled={saving}
-                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-gray-300 transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-[#BFC5CE] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -630,7 +646,7 @@ export default function AdminSubCategoriesPage() {
       {/* ── Archive Confirmation Modal ── */}
       {deleteTarget && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-300 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-4">
               <Archive size={22} />
             </div>
@@ -645,7 +661,7 @@ export default function AdminSubCategoriesPage() {
                 type="button"
                 onClick={() => setDeleteTarget(null)}
                 disabled={deleting}
-                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-gray-300 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-[#BFC5CE] transition-colors cursor-pointer"
               >
                 Cancel
               </button>

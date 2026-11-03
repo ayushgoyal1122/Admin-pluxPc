@@ -11,6 +11,11 @@ import AdminSubCategoriesPage from "./pages/AdminSubCategoriesPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminPromoCodesPage from "./pages/AdminPromoCodesPage";
 import AdminPlatformFeePage from "./pages/AdminPlatformFeePage";
+import AdminManageEarningPage from "./pages/AdminManageEarningPage";
+import AdminUserDetailsPage from "./pages/AdminUserDetailsPage";
+import AdminAuditLogsPage from "./pages/AdminAuditLogsPage";
+import AdminBlogsPage from "./pages/AdminBlogsPage";
+import AdminBlogFormPage from "./pages/AdminBlogFormPage";
 
 /**
  * Root landing page resolver:
@@ -66,9 +71,17 @@ export function AppRoutes() {
         <Route path="categories" element={<AdminCategoriesPage />} />
         <Route path="subcategories" element={<AdminSubCategoriesPage />} />
         <Route path="orders" element={<AdminOrdersPage />} />
+        <Route path="manage-earning" element={<AdminManageEarningPage />} />
+        <Route path="earnings" element={<Navigate to="/admin/manage-earning" replace />} />
+        <Route path="view-user/:userId" element={<AdminUserDetailsPage />} />
+        <Route path="users/:userId" element={<Navigate to="/admin/view-user/:userId" replace />} />
         <Route path="promo-codes" element={<AdminPromoCodesPage />} />
         <Route path="settings/platform-fee" element={<AdminPlatformFeePage />} />
         <Route path="platform-fee" element={<Navigate to="/admin/settings/platform-fee" replace />} />
+        <Route path="audit-logs" element={<AdminAuditLogsPage />} />
+        <Route path="blogs" element={<AdminBlogsPage />} />
+        <Route path="blogs/new" element={<AdminBlogFormPage />} />
+        <Route path="blogs/:id/edit" element={<AdminBlogFormPage />} />
       </Route>
 
       {/* Catch-all redirect back to root resolver */}

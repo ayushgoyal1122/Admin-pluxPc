@@ -59,7 +59,7 @@
   /* ── Product card (Option 2: Rounded Bottom Only experiment) ── */
   /* Easy to revert: change `bg-[#F1F3F5] rounded-t-none rounded-b-[22px]` back to `bg-white rounded-lg` */
   .vx-card {
-    @apply bg-[#F1F3F5] rounded-t-none rounded-b-[22px] border border-gray-200/70 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-pointer relative;
+    @apply bg-[#F1F3F5] rounded-t-none rounded-b-[22px] border border-[#C5C9D0] overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-pointer relative;
   }
 
   /* ── Badge pills ── */
@@ -82,7 +82,7 @@
   }
 
   .vx-tab-inactive {
-    @apply bg-white text-gray-700 border-gray-300 hover:border-gray-500;
+    @apply bg-white text-gray-700 border-[#BFC5CE] hover:border-[#111827];
   }
 
   /* ── CTA buttons ── */
@@ -116,6 +116,6 @@
 
   /* ── Carousel arrow btn ── */
   .vx-arrow {
-    @apply w-9 h-9 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center hover:bg-gray-50 active:scale-95 transition-all duration-150 flex-shrink-0 cursor-pointer;
+    @apply w-9 h-9 rounded-full bg-white border border-[#BFC5CE] shadow flex items-center justify-center hover:bg-gray-50 hover:border-[#111827] active:scale-95 transition-all duration-150 flex-shrink-0 cursor-pointer;
   }
 }

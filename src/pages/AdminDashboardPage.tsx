@@ -46,7 +46,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-sans">
       {/* ── Top Header Section ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5E7EB]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#C5C9D0]">
         <div>
           <h1 className="text-2xl font-bold text-[#1F2937] tracking-tight">Admin Overview</h1>
           <p className="text-sm text-[#6B7280] mt-0.5">
@@ -57,7 +57,7 @@ export default function AdminDashboardPage() {
           <button
             onClick={loadStats}
             disabled={loading}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-[#E5E7EB] text-xs font-semibold text-[#374151] hover:text-[#1F2937] hover:bg-[#F3F4F6] transition-all disabled:opacity-50 shadow-xs"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-[#BFC5CE] text-xs font-semibold text-[#374151] hover:text-[#1F2937] hover:bg-[#F3F4F6] transition-all disabled:opacity-50 shadow-xs"
           >
             <RefreshCw size={14} className={loading ? "animate-spin text-gray-500" : "text-gray-500"} />
             <span>{loading ? "Refreshing..." : "Refresh"}</span>
@@ -91,7 +91,7 @@ export default function AdminDashboardPage() {
       {/* ── Responsive Real Database Summary Cards Grid ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Products */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Total Products</span>
             <div className="w-9 h-9 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center">
@@ -113,10 +113,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 2: Total Categories */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Categories</span>
-            <div className="w-9 h-9 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-gray-100 text-gray-800 flex items-center justify-center">
               <Layers size={18} />
             </div>
           </div>
@@ -133,15 +133,15 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 3: In Stock Units */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">In Stock SKUs</span>
-            <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-red-50 text-[#E31E24] flex items-center justify-center">
               <CheckCircle2 size={18} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl font-extrabold text-emerald-700 tracking-tight">
+            <div className="text-3xl font-extrabold text-[#E31E24] tracking-tight">
               {loading ? (
                 <div className="h-8 w-16 bg-gray-200 rounded animate-pulse" />
               ) : (
@@ -155,15 +155,15 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 4: Low Stock Alert */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Low Stock SKUs</span>
-            <div className="w-9 h-9 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-red-50 text-[#E31E24] flex items-center justify-center">
               <AlertTriangle size={18} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-3xl font-extrabold text-amber-700 tracking-tight">
+            <div className="text-3xl font-extrabold text-[#1F2937] tracking-tight">
               {loading ? (
                 <div className="h-8 w-16 bg-gray-200 rounded animate-pulse" />
               ) : (
@@ -175,10 +175,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 5: Out of Stock */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Out of Stock</span>
-            <div className="w-9 h-9 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-red-100 text-[#E31E24] flex items-center justify-center">
               <XCircle size={18} />
             </div>
           </div>
@@ -195,10 +195,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 6: Average Product Price */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Avg Catalog Price</span>
-            <div className="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-gray-100 text-gray-800 flex items-center justify-center">
               <Tag size={18} />
             </div>
           </div>
@@ -217,10 +217,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 7: Total Inventory Volume */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Total Units in Stock</span>
-            <div className="w-9 h-9 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-gray-100 text-gray-800 flex items-center justify-center">
               <Boxes size={18} />
             </div>
           </div>
@@ -237,16 +237,16 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Card 8: Database Connection */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-xs transition-shadow hover:shadow-sm">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-5 shadow-2xs transition-shadow hover:shadow-sm">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[#6B7280] uppercase tracking-wider">Database Status</span>
-            <div className="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-gray-100 text-gray-900 flex items-center justify-center">
               <Database size={18} />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-emerald-700 tracking-tight flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="text-2xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E31E24] animate-pulse" />
               <span>Connected</span>
             </div>
             <p className="text-xs text-[#6B7280] mt-1.5 truncate" title={data?.databaseStatus?.host}>
@@ -260,7 +260,7 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <Link
           to="/admin/products/new"
-          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E7EB] hover:bg-[#F3F4F6] transition-all shadow-xs group"
+          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#C5C9D0] hover:bg-[#F3F4F6] transition-all shadow-2xs group"
         >
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-800 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
@@ -276,7 +276,7 @@ export default function AdminDashboardPage() {
 
         <Link
           to="/admin/products"
-          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E7EB] hover:bg-[#F3F4F6] transition-all shadow-xs group"
+          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#C5C9D0] hover:bg-[#F3F4F6] transition-all shadow-2xs group"
         >
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-800 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
@@ -292,7 +292,7 @@ export default function AdminDashboardPage() {
 
         <Link
           to="/admin/categories"
-          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#E5E7EB] hover:bg-[#F3F4F6] transition-all shadow-xs group"
+          className="flex items-center justify-between p-4 rounded-xl bg-white border border-[#C5C9D0] hover:bg-[#F3F4F6] transition-all shadow-2xs group"
         >
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-gray-100 text-gray-800 flex items-center justify-center group-hover:bg-gray-200 transition-colors">

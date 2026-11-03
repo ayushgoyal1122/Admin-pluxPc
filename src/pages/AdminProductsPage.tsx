@@ -139,7 +139,7 @@ export default function AdminProductsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-sans">
       {/* ── Page Header ── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#E5E7EB]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[#C5C9D0]">
         <div>
           <h1 className="text-2xl font-bold text-[#1F2937] tracking-tight">Products Management</h1>
           <p className="text-sm text-[#6B7280] mt-0.5">
@@ -150,7 +150,7 @@ export default function AdminProductsPage() {
           <button
             onClick={loadData}
             disabled={loading}
-            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-[#E5E7EB] text-xs font-semibold text-[#374151] hover:text-[#1F2937] hover:bg-[#F3F4F6] transition-all disabled:opacity-50 shadow-xs"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white border border-[#BFC5CE] text-xs font-semibold text-[#374151] hover:text-[#1F2937] hover:bg-[#F3F4F6] transition-all disabled:opacity-50 shadow-xs"
           >
             <RefreshCw size={14} className={loading ? "animate-spin text-gray-500" : "text-gray-500"} />
             <span>Reload</span>
@@ -189,7 +189,7 @@ export default function AdminProductsPage() {
       )}
 
       {/* ── Filter and Search Bar ── */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl p-4 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between shadow-xs">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl p-4 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between shadow-2xs">
         {/* Search Input */}
         <div className="relative flex-1 max-w-md">
           <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -198,7 +198,7 @@ export default function AdminProductsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products by name, slug, tag..."
-            className="w-full pl-10 pr-4 py-2 text-xs bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors"
+            className="w-full pl-10 pr-4 py-2 text-xs bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] transition-colors"
           />
         </div>
 
@@ -211,7 +211,7 @@ export default function AdminProductsPage() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900"
+            className="px-3 py-1.5 text-xs bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827]"
           >
             <option value="">All Categories ({categories.length})</option>
             {categories.map((c) => (
@@ -224,7 +224,7 @@ export default function AdminProductsPage() {
           <select
             value={stockFilter}
             onChange={(e) => setStockFilter(e.target.value)}
-            className="px-3 py-1.5 text-xs bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900"
+            className="px-3 py-1.5 text-xs bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827]"
           >
             <option value="all">All Stock Statuses</option>
             <option value="in">In Stock Only</option>
@@ -235,7 +235,7 @@ export default function AdminProductsPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="px-3 py-1.5 text-xs bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] font-semibold focus:outline-none focus:border-gray-900"
+            className="px-3 py-1.5 text-xs bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] font-semibold focus:outline-none focus:border-[#111827]"
           >
             <option value="active">Active Products</option>
             <option value="archived">Archived Products</option>
@@ -259,7 +259,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* ── Products Table ── */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl overflow-hidden shadow-xs">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl overflow-hidden shadow-2xs">
         {loading ? (
           <div className="py-24 text-center text-[#6B7280] text-sm flex flex-col items-center gap-2">
             <div className="w-8 h-8 border-2 border-gray-900 border-t-transparent rounded-full animate-spin" />
@@ -279,7 +279,7 @@ export default function AdminProductsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-[#1F2937]">
-              <thead className="bg-[#F9FAFB] text-[11px] font-bold text-[#6B7280] uppercase tracking-wider border-b border-[#E5E7EB]">
+              <thead className="bg-[#F9FAFB] text-[11px] font-bold text-[#6B7280] uppercase tracking-wider border-b border-[#BFC5CE]">
                 <tr>
                   <th className="px-5 py-3.5">Product</th>
                   <th className="px-5 py-3.5">Category</th>
@@ -289,7 +289,7 @@ export default function AdminProductsPage() {
                   <th className="px-5 py-3.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E7EB]">
+              <tbody className="divide-y divide-[#D1D5DB]">
                 {filteredProducts.map((p) => (
                   <tr key={p.id} className="hover:bg-[#F9FAFB] transition-colors">
                     {/* Product info */}
@@ -298,7 +298,7 @@ export default function AdminProductsPage() {
                         <img
                           src={p.imageUrl}
                           alt={p.name}
-                          className="w-12 h-12 rounded-lg object-cover bg-gray-100 border border-gray-200 flex-shrink-0"
+                          className="w-12 h-12 rounded-lg object-cover bg-gray-100 border border-[#BFC5CE] flex-shrink-0"
                           onError={(e) => handleImageError(e, p.category || p.name)}
                         />
                         <div className="max-w-xs">
@@ -310,7 +310,7 @@ export default function AdminProductsPage() {
 
                     {/* Category */}
                     <td className="px-5 py-4">
-                      <span className="px-2.5 py-1 rounded bg-gray-100 border border-gray-200 text-xs font-medium text-gray-700">
+                      <span className="px-2.5 py-1 rounded bg-gray-100 border border-[#BFC5CE] text-xs font-medium text-gray-700">
                         {p.categoryLabel || p.category}
                       </span>
                     </td>
@@ -329,7 +329,7 @@ export default function AdminProductsPage() {
                     <td className="px-5 py-4">
                       <div className="flex flex-col gap-1 items-start">
                         {p.badge && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-100 text-gray-800 border border-gray-200">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-100 text-gray-800 border border-[#BFC5CE]">
                             {p.badgeIcon && <span>{p.badgeIcon}</span>}
                             <span>{p.badge}</span>
                           </span>
@@ -352,17 +352,17 @@ export default function AdminProductsPage() {
                       ) : p.inStock ? (
                         <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${
                           (p.stockQuantity ?? 50) <= 25
-                            ? "bg-amber-50 text-amber-700 border-amber-200"
-                            : "bg-emerald-50 text-emerald-700 border-emerald-200"
+                            ? "bg-red-50 text-[#E31E24] border-red-200"
+                            : "bg-gray-100 text-gray-800 border-[#BFC5CE]"
                         }`}>
                           <span className={`w-1.5 h-1.5 rounded-full ${
-                            (p.stockQuantity ?? 50) <= 25 ? "bg-amber-500" : "bg-emerald-500"
+                            (p.stockQuantity ?? 50) <= 25 ? "bg-[#E31E24]" : "bg-gray-900"
                           }`} />
                           In Stock ({p.stockQuantity ?? 0})
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-[#E31E24] border border-red-200">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E31E24]" />
                           Out of Stock
                         </span>
                       )}
@@ -385,14 +385,14 @@ export default function AdminProductsPage() {
                             <Link
                               to={`/admin/products/${p.id}/edit`}
                               title="Edit Product"
-                              className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                              className="p-1.5 text-gray-400 hover:text-[#E31E24] hover:bg-red-50 rounded-md transition-colors"
                             >
                               <Edit2 size={15} />
                             </Link>
                             <button
                               onClick={() => setDeleteTarget(p)}
                               title="Archive Product"
-                              className="p-1.5 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors cursor-pointer"
+                              className="p-1.5 text-gray-400 hover:text-[#E31E24] hover:bg-red-50 rounded-md transition-colors cursor-pointer"
                             >
                               <Archive size={15} />
                             </button>
@@ -403,7 +403,7 @@ export default function AdminProductsPage() {
                             onClick={() => handleRestore(p)}
                             disabled={restoringId === p.id}
                             title="Restore Product to Active"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold text-gray-900 bg-gray-100 hover:bg-gray-200 border border-[#BFC5CE] rounded-lg transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <RotateCcw size={13} className={restoringId === p.id ? "animate-spin" : ""} />
                             <span>{restoringId === p.id ? "Restoring..." : "Restore"}</span>
@@ -422,7 +422,7 @@ export default function AdminProductsPage() {
       {/* ── Archive Confirmation Modal ── */}
       {deleteTarget && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-[#E5E7EB] rounded-2xl p-6 max-w-md w-full shadow-xl">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-4">
               <Archive size={22} />
             </div>
@@ -438,7 +438,7 @@ export default function AdminProductsPage() {
                 type="button"
                 onClick={() => setDeleteTarget(null)}
                 disabled={deleting}
-                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-[#BFC5CE] transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -446,7 +446,7 @@ export default function AdminProductsPage() {
                 type="button"
                 onClick={handleArchive}
                 disabled={deleting}
-                className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-xs font-semibold text-white transition-colors flex items-center gap-2 cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-xs font-semibold text-white transition-colors flex items-center gap-2 cursor-pointer shadow-xs"
               >
                 {deleting ? "Archiving..." : "Confirm Archive"}
               </button>

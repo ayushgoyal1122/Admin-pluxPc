@@ -192,7 +192,7 @@ export default function AdminProductFormPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 font-sans">
       {/* ── Top Navigation & Title ── */}
-      <div className="flex items-center justify-between pb-2 border-b border-[#E5E7EB]">
+      <div className="flex items-center justify-between pb-2 border-b border-[#C5C9D0]">
         <Link
           to="/admin/products"
           className="text-xs font-semibold text-[#6B7280] hover:text-[#1F2937] flex items-center gap-1.5 transition-colors"
@@ -233,8 +233,8 @@ export default function AdminProductFormPage() {
       {/* ── Main Form ── */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* 1. Basic Information */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 space-y-4 shadow-xs">
-          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#E5E7EB] pb-2">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-6 space-y-4 shadow-2xs">
+          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#C5C9D0] pb-2">
             1. Basic Information
           </h2>
 
@@ -249,7 +249,7 @@ export default function AdminProductFormPage() {
                 onChange={(e) => handleNameChange(e.target.value)}
                 placeholder="e.g. PLUXPC ProBuds X9 ANC"
                 required
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
             </div>
 
@@ -273,7 +273,7 @@ export default function AdminProductFormPage() {
                 onChange={(e) => setSlug(e.target.value)}
                 placeholder="pluxpc-probuds-x9-anc"
                 required
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] font-mono focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 disabled:bg-gray-50 disabled:text-gray-500"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] font-mono focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
           </div>
@@ -287,7 +287,7 @@ export default function AdminProductFormPage() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 required
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827]"
               >
                 {categories.map((c) => (
                   <option key={c.slug} value={c.slug}>
@@ -306,7 +306,7 @@ export default function AdminProductFormPage() {
                 value={featureTag}
                 onChange={(e) => setFeatureTag(e.target.value)}
                 placeholder="e.g. 50 Hrs Playback, 100W RMS"
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
             </div>
           </div>
@@ -320,14 +320,14 @@ export default function AdminProductFormPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Key specifications, battery life, audio tech highlights..."
-              className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+              className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
             />
           </div>
         </div>
 
         {/* 2. Pricing & Inventory */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 space-y-4 shadow-xs">
-          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#E5E7EB] pb-2">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-6 space-y-4 shadow-2xs">
+          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#C5C9D0] pb-2">
             2. Pricing & Inventory
           </h2>
 
@@ -343,7 +343,7 @@ export default function AdminProductFormPage() {
                 onChange={(e) => setPrice(e.target.value === "" ? "" : Number(e.target.value))}
                 placeholder="1499"
                 required
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
             </div>
 
@@ -357,7 +357,7 @@ export default function AdminProductFormPage() {
                 value={originalPrice}
                 onChange={(e) => setOriginalPrice(e.target.value === "" ? "" : Number(e.target.value))}
                 placeholder="4990"
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
             </div>
 
@@ -370,7 +370,7 @@ export default function AdminProductFormPage() {
                 min="0"
                 value={stockQuantity}
                 onChange={(e) => setStockQuantity(Number(e.target.value))}
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
             </div>
           </div>
@@ -381,7 +381,7 @@ export default function AdminProductFormPage() {
               id="inStockCheck"
               checked={inStock}
               onChange={(e) => setInStock(e.target.checked)}
-              className="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+              className="w-4 h-4 rounded border-[#BFC5CE] text-gray-900 focus:ring-[#111827]"
             />
             <label htmlFor="inStockCheck" className="text-xs font-semibold text-[#374151] cursor-pointer">
               Mark product as In Stock & available for immediate purchase
@@ -390,8 +390,8 @@ export default function AdminProductFormPage() {
         </div>
 
         {/* 3. Product Imagery */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 space-y-4 shadow-xs">
-          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#E5E7EB] pb-2">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-6 space-y-4 shadow-2xs">
+          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#C5C9D0] pb-2">
             3. Product Imagery
           </h2>
 
@@ -406,7 +406,7 @@ export default function AdminProductFormPage() {
                 onChange={(e) => setImageUrl(e.target.value)}
                 placeholder="https://images.unsplash.com/..."
                 required
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
               <p className="text-[11px] text-[#6B7280]">
                 Direct image link (Unsplash, CDN, or Cloudinary). Uses high-resolution electronics photography.
@@ -416,7 +416,7 @@ export default function AdminProductFormPage() {
             {/* Live Preview Box */}
             <div className="flex flex-col items-center">
               <span className="text-xs font-semibold text-[#6B7280] mb-1.5">Card Preview</span>
-              <div className="w-24 h-24 rounded-lg bg-gray-50 border border-[#E5E7EB] overflow-hidden flex items-center justify-center relative shadow-xs">
+              <div className="w-24 h-24 rounded-lg bg-gray-50 border border-[#BFC5CE] overflow-hidden flex items-center justify-center relative shadow-xs">
                 {imageUrl ? (
                   <img
                     src={imageUrl}
@@ -436,8 +436,8 @@ export default function AdminProductFormPage() {
         </div>
 
         {/* 4. Merchandising & Sections */}
-        <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 space-y-4 shadow-xs">
-          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#E5E7EB] pb-2">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl p-6 space-y-4 shadow-2xs">
+          <h2 className="text-xs font-bold text-[#1F2937] uppercase tracking-wider border-b border-[#C5C9D0] pb-2">
             4. Merchandising & Sections
           </h2>
 
@@ -451,7 +451,7 @@ export default function AdminProductFormPage() {
                 value={badge}
                 onChange={(e) => setBadge(e.target.value)}
                 placeholder="e.g. New Launch, Bestseller, Free Spotify"
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
               />
             </div>
 
@@ -462,7 +462,7 @@ export default function AdminProductFormPage() {
               <select
                 value={badgeIcon}
                 onChange={(e) => setBadgeIcon(e.target.value)}
-                className="w-full px-3.5 py-2 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] focus:outline-none focus:border-gray-900"
+                className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] focus:outline-none focus:border-[#111827]"
               >
                 <option value="🚀">🚀 Rocket (New Launch)</option>
                 <option value="🔥">🔥 Fire (Trending / Hot)</option>
@@ -487,15 +487,15 @@ export default function AdminProductFormPage() {
                   key={sec.id}
                   className={`flex items-center gap-2 p-2.5 rounded-lg border text-xs cursor-pointer transition-all ${
                     selectedSections.includes(sec.id)
-                      ? "bg-[#EEF2F7] border-gray-400 text-[#1F2937] font-semibold"
-                      : "bg-white border-[#E5E7EB] text-[#6B7280] hover:text-[#1F2937] hover:bg-gray-50"
+                      ? "bg-[#EEF2F7] border-[#AEB6C2] text-[#1F2937] font-semibold"
+                      : "bg-white border-[#BFC5CE] text-[#6B7280] hover:text-[#1F2937] hover:bg-gray-50"
                   }`}
                 >
                   <input
                     type="checkbox"
                     checked={selectedSections.includes(sec.id)}
                     onChange={() => handleToggleSection(sec.id)}
-                    className="rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+                    className="rounded border-[#BFC5CE] text-gray-900 focus:ring-[#111827]"
                   />
                   <span>{sec.label}</span>
                 </label>
@@ -516,8 +516,8 @@ export default function AdminProductFormPage() {
                   onClick={() => handleToggleColor(c.value)}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs transition-all cursor-pointer ${
                     selectedColors.includes(c.value)
-                      ? "bg-[#EEF2F7] border-gray-400 text-[#1F2937] font-semibold"
-                      : "bg-white border-[#E5E7EB] text-[#6B7280] hover:bg-gray-50"
+                      ? "bg-[#EEF2F7] border-[#AEB6C2] text-[#1F2937] font-semibold"
+                      : "bg-white border-[#BFC5CE] text-[#6B7280] hover:bg-gray-50"
                   }`}
                 >
                   <span className={`w-3.5 h-3.5 rounded-full border border-gray-300 ${c.value}`} />
@@ -529,10 +529,10 @@ export default function AdminProductFormPage() {
         </div>
 
         {/* ── Submit Actions ── */}
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E5E7EB]">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#C5C9D0]">
           <Link
             to="/admin/products"
-            className="px-5 py-2.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 transition-colors"
+            className="px-5 py-2.5 rounded-lg bg-gray-100 hover:bg-gray-200 border border-[#BFC5CE] text-xs font-semibold text-gray-700 transition-colors"
           >
             Cancel
           </Link>

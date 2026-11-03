@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
             />
           </Link>
           <div className="flex items-center justify-center gap-1.5 mt-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#E5E7EB] text-xs font-semibold text-[#374151] shadow-xs">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#BFC5CE] text-xs font-semibold text-[#374151] shadow-xs">
               <ShieldCheck size={14} className="text-gray-700" />
               <span>Admin Control Center</span>
             </span>
@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Login Card (Clean White & Grey) */}
-        <div className="bg-white border border-[#E5E7EB] rounded-2xl shadow-sm p-8">
+        <div className="bg-white border border-[#C5C9D0] rounded-xl shadow-2xs p-8">
           <h1 className="text-xl font-bold text-[#1F2937] mb-1.5">Sign in to Admin Dashboard</h1>
           <p className="text-xs text-[#6B7280] mb-6">
             Enter your administrator credentials to access catalog management and analytics.
@@ -96,7 +96,7 @@ export default function AdminLoginPage() {
                   placeholder="dev@youngdecade.com"
                   required
                   autoFocus
-                  className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] transition-all"
                 />
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
                   required
-                  className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-[#E5E7EB] rounded-lg text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all"
+                  className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-[#BFC5CE] rounded-lg text-[#1F2937] placeholder-gray-400 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] transition-all"
                 />
                 <button
                   type="button"
@@ -143,7 +143,7 @@ export default function AdminLoginPage() {
           </form>
 
           {/* MongoDB Atlas Security Badge */}
-          <div className="mt-6 pt-5 border-t border-[#E5E7EB] flex items-center justify-between text-xs text-[#6B7280]">
+          <div className="mt-6 pt-5 border-t border-[#C5C9D0] flex items-center justify-between text-xs text-[#6B7280]">
             <span>Security</span>
             <span className="font-medium text-[#374151]">BCrypt &bull; JWT Auth Protected</span>
           </div>

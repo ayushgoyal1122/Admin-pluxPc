@@ -306,3 +306,229 @@ export interface PlatformFeeInput {
   minFee?: number | null;
   maxFee?: number | null;
 }
+
+// ── Manage Earning & User Details Types ──
+
+export interface EarningUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+}
+
+export interface EarningItemSummary {
+  name: string;
+  quantity: number;
+  imageUrl?: string;
+  price?: number;
+  subtotal?: number;
+}
+
+export interface EarningTransaction {
+  sNo: number;
+  id: string;
+  orderNumber: string;
+  transactionId: string;
+  paymentId?: string | null;
+  user: EarningUser;
+  itemsCount: number;
+  itemsSummary?: EarningItemSummary[];
+  amount: number;
+  currency: string;
+  paymentStatus: "paid" | "pending" | "failed" | "refunded";
+  orderStatus: "placed" | "confirmed" | "processing" | "shipped" | "out_for_delivery" | "delivered" | "cancelled";
+  purchasedAt: string;
+  createdAt: string;
+}
+
+export interface EarningsSummaryResponse {
+  success: boolean;
+  totalRevenue: number;
+  todayRevenue: number;
+  totalTransactions: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  transactions: EarningTransaction[];
+  message?: string;
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  role: string;
+  status: "Active" | "Inactive";
+  isDeleted: boolean;
+  memberSince: string;
+}
+
+export interface UserStatistics {
+  accountStatus: string;
+  totalOrders: number;
+  paidOrdersCount: number;
+  totalItemsPurchased: number;
+  totalSpent: number;
+}
+
+export interface UserPurchaseItem {
+  name: string;
+  slug?: string;
+  imageUrl?: string;
+  price: number;
+  quantity: number;
+  subtotal: number;
+}
+
+export interface UserPurchaseOrder {
+  id: string;
+  orderNumber: string;
+  transactionId: string;
+  itemsCount: number;
+  amount: number;
+  currency: string;
+  paymentStatus: "paid" | "pending" | "failed" | "refunded";
+  orderStatus: "placed" | "confirmed" | "processing" | "shipped" | "out_for_delivery" | "delivered" | "cancelled";
+  items: UserPurchaseItem[];
+  purchasedAt: string;
+  createdAt: string;
+}
+
+export interface UserEarningDetailsResponse {
+  success: boolean;
+  user: UserProfile;
+  statistics: UserStatistics;
+  purchaseHistory: UserPurchaseOrder[];
+  message?: string;
+}
+
+// ─── Audit Log Types ──────────────────────────────────────────────────────────
+
+export interface AuditLogRecord {
+  id: string;
+  actorId?: string | null;
+  actorType: "admin" | "customer" | "system" | "anonymous";
+  actorRole: "admin" | "customer" | "system" | "unauthenticated";
+  actorName: string;
+  actorEmail: string;
+  action: string;
+  actionLabel: string;
+  module: string;
+  moduleLabel: string;
+  entityType?: string;
+  entityId?: string;
+  entityTitle?: string;
+  description: string;
+  result: "success" | "failure";
+  failureReason?: string;
+  changedFields: string[];
+  requestMethod: string;
+  requestPath: string;
+  ipAddress: string;
+  userAgent: string;
+  metadata?: Record<string, any>;
+  createdAt: string;
+}
+
+export interface AuditLogStats {
+  totalLogs: number;
+  todayActivity: number;
+  adminActions: number;
+  customerActivity: number;
+  failedActions: number;
+  tabs: {
+    all: number;
+    admin: number;
+    customer: number;
+    auth: number;
+    products: number;
+    orders: number;
+    settings: number;
+    failed: number;
+  };
+}
+
+export interface AuditLogQueryParams {
+  page?: number;
+  limit?: number;
+  q?: string;
+  module?: string;
+  action?: string;
+  role?: string;
+  startDate?: string;
+  endDate?: string;
+  tab?: string;
+}
+
+export interface AuditLogListResponse {
+  success: boolean;
+  logs: AuditLogRecord[];
+  totalCount: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  message?: string;
+}
+
+// ─── Blog Types ─────────────────────────────────────────────────────────────
+export interface Blog {
+  _id: string;
+  id?: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  coverImage: string;
+  category: string;
+  categorySlug?: string;
+  author: string;
+  authorRole?: string;
+  authorAvatar?: string;
+  tags?: string[];
+  status: "draft" | "published";
+  readTime: string;
+  views: number;
+  isFeatured: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  publishedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface BlogInput {
+  title: string;
+  slug?: string;
+  excerpt: string;
+  content: string;
+  coverImage: string;
+  category: string;
+  author?: string;
+  authorRole?: string;
+  authorAvatar?: string;
+  tags?: string[];
+  status?: "draft" | "published";
+  readTime?: string;
+  isFeatured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
+  publishedAt?: string;
+}
+
+export interface BlogStats {
+  total: number;
+  published: number;
+  draft: number;
+  totalViews: number;
+}
+
+export interface BlogAdminListResponse {
+  success: boolean;
+  blogs: Blog[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
+

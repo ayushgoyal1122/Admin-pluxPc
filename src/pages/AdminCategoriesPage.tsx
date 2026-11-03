@@ -249,11 +249,11 @@ export default function AdminCategoriesPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto font-sans pb-12">
       {/* ── Top Header Card (Manage Categories) ── */}
-      <div className="bg-white border border-gray-200 rounded-xl px-6 py-5 flex items-center justify-between shadow-xs">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl px-6 py-5 flex items-center justify-between shadow-2xs">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
           Manage Categories
         </h1>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 bg-white text-xs shadow-2xs">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#BFC5CE] bg-white text-xs shadow-2xs">
           <span className="font-extrabold text-[#E31E24] text-sm">{categories.length}</span>
           <span className="text-gray-500 font-medium">Total Categories</span>
         </div>
@@ -283,9 +283,9 @@ export default function AdminCategoriesPage() {
       )}
 
       {/* ── Main Categories Container Card ── */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-xs overflow-visible">
+      <div className="bg-white border border-[#C5C9D0] rounded-xl shadow-2xs overflow-visible">
         {/* Top Search Bar, Status Filter & Add Category Button */}
-        <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-200">
+        <div className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#C5C9D0]">
           <div className="flex items-center gap-3 flex-1 max-w-lg">
             <div className="relative flex-1">
               <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -294,13 +294,13 @@ export default function AdminCategoriesPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search category..."
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-colors"
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#BFC5CE] rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827] transition-colors"
               />
             </div>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as any)}
-              className="px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-gray-800 focus:outline-none focus:border-gray-900"
+              className="px-3 py-2.5 bg-white border border-[#BFC5CE] rounded-lg text-xs font-semibold text-gray-800 focus:outline-none focus:border-[#111827]"
             >
               <option value="active">Active Categories</option>
               <option value="archived">Archived Categories</option>
@@ -336,7 +336,7 @@ export default function AdminCategoriesPage() {
         ) : (
           <div className="overflow-x-auto min-h-[460px]">
             <table className="w-full text-left text-sm text-gray-800">
-              <thead className="bg-white border-b border-gray-200 text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+              <thead className="bg-white border-b border-[#BFC5CE] text-[11px] font-bold text-gray-600 uppercase tracking-wider">
                 <tr>
                   <th className="px-6 py-4 w-16 text-center sm:text-left">S.NO.</th>
                   <th className="px-6 py-4 w-36">ACTION</th>
@@ -346,93 +346,108 @@ export default function AdminCategoriesPage() {
                   <th className="px-6 py-4 text-right pr-8">CREATED DATE & TIME</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 text-sm">
-                {filteredCategories.map((c, idx) => (
-                  <tr key={c.id} className="hover:bg-gray-50/80 transition-colors">
-                    {/* S.NO. */}
-                    <td className="px-6 py-4.5 font-bold text-gray-900 text-sm">
-                      {idx + 1}
-                    </td>
+              <tbody className="divide-y divide-[#D1D5DB] text-sm">
+                {filteredCategories.map((c, idx) => {
+                  const isDropup = idx >= 2 && idx >= filteredCategories.length - 3;
+                  return (
+                    <tr
+                      key={c.id}
+                      className={`hover:bg-gray-50/80 transition-colors ${
+                        openActionId === c.id ? "relative z-30" : ""
+                      }`}
+                    >
+                      {/* S.NO. */}
+                      <td className="px-6 py-4.5 font-bold text-gray-900 text-sm">
+                        {idx + 1}
+                      </td>
 
-                    {/* ACTION Dropdown Button */}
-                    <td className="px-6 py-4.5">
-                      <div className="relative action-menu-container inline-block text-left">
-                        <button
-                          type="button"
-                          onClick={() => setOpenActionId(openActionId === c.id ? null : c.id)}
-                          className="bg-[#E31E24] hover:bg-[#C9191E] text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
+                      {/* ACTION Dropdown Button */}
+                      <td className="px-6 py-4.5">
+                        <div
+                          className={`relative action-menu-container inline-block text-left ${
+                            openActionId === c.id ? "z-50" : ""
+                          }`}
                         >
-                          <span>Action</span>
-                          <ChevronDown
-                            size={14}
-                            className={openActionId === c.id ? "rotate-180 transition-transform" : "transition-transform"}
-                          />
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => setOpenActionId(openActionId === c.id ? null : c.id)}
+                            className="bg-[#E31E24] hover:bg-[#C9191E] text-white text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
+                          >
+                            <span>Action</span>
+                            <ChevronDown
+                              size={14}
+                              className={openActionId === c.id ? "rotate-180 transition-transform" : "transition-transform"}
+                            />
+                          </button>
 
-                        {/* Floating Action Dropdown Menu */}
-                        {openActionId === c.id && (
-                          <div className="absolute left-0 top-full mt-1.5 w-36 bg-white border border-gray-200 rounded-xl shadow-xl py-1 z-40 divide-y divide-gray-100">
-                            <div className="py-1">
-                              {!c.isDeleted && (
-                                <a
-                                  href={`http://localhost:5173/products?category=${c.slug}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  onClick={() => setOpenActionId(null)}
+                          {/* Floating Action Dropdown Menu */}
+                          {openActionId === c.id && (
+                            <div
+                              className={`absolute left-0 ${
+                                isDropup ? "bottom-full mb-1.5" : "top-full mt-1.5"
+                              } w-36 bg-white border border-[#BFC5CE] rounded-xl shadow-xl py-1 z-50 divide-y divide-[#D1D5DB]`}
+                            >
+                              <div className="py-1">
+                                {!c.isDeleted && (
+                                  <a
+                                    href={`http://localhost:5173/products?category=${c.slug}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => setOpenActionId(null)}
+                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors cursor-pointer text-left"
+                                  >
+                                    <Eye size={14} className="text-gray-500" />
+                                    <span>View</span>
+                                  </a>
+                                )}
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setOpenActionId(null);
+                                    openEditModal(c);
+                                  }}
                                   className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors cursor-pointer text-left"
                                 >
-                                  <Eye size={14} className="text-gray-500" />
-                                  <span>View</span>
-                                </a>
-                              )}
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setOpenActionId(null);
-                                  openEditModal(c);
-                                }}
-                                className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors cursor-pointer text-left"
-                              >
-                                <Edit2 size={14} className="text-gray-500" />
-                                <span>Edit</span>
-                              </button>
-                            </div>
-                            <div className="py-1">
-                              {!c.isDeleted ? (
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setOpenActionId(null);
-                                    setDeleteTarget(c);
-                                  }}
-                                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-amber-600 hover:bg-amber-50 transition-colors cursor-pointer text-left"
-                                >
-                                  <Archive size={14} className="text-amber-500" />
-                                  <span>Archive</span>
+                                  <Edit2 size={14} className="text-gray-500" />
+                                  <span>Edit</span>
                                 </button>
-                              ) : (
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setOpenActionId(null);
-                                    handleRestoreCategory(c);
-                                  }}
-                                  disabled={restoringId === c.id}
-                                  className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-emerald-600 hover:bg-emerald-50 transition-colors cursor-pointer text-left"
-                                >
-                                  <RotateCcw size={14} className={restoringId === c.id ? "animate-spin text-emerald-600" : "text-emerald-500"} />
-                                  <span>{restoringId === c.id ? "Restoring..." : "Restore"}</span>
-                                </button>
-                              )}
+                              </div>
+                              <div className="py-1">
+                                {!c.isDeleted ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setOpenActionId(null);
+                                      setDeleteTarget(c);
+                                    }}
+                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-amber-600 hover:bg-amber-50 transition-colors cursor-pointer text-left"
+                                  >
+                                    <Archive size={14} className="text-amber-500" />
+                                    <span>Archive</span>
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setOpenActionId(null);
+                                      handleRestoreCategory(c);
+                                    }}
+                                    disabled={restoringId === c.id}
+                                    className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-emerald-600 hover:bg-emerald-50 transition-colors cursor-pointer text-left"
+                                  >
+                                    <RotateCcw size={14} className={restoringId === c.id ? "animate-spin text-emerald-600" : "text-emerald-500"} />
+                                    <span>{restoringId === c.id ? "Restoring..." : "Restore"}</span>
+                                  </button>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    </td>
+                          )}
+                        </div>
+                      </td>
 
                     {/* ICON (Rounded Square Tile like Image 1) */}
                     <td className="px-6 py-4.5">
-                      <div className="w-12 h-12 rounded-xl bg-[#F8FAFC] border border-gray-200/90 flex items-center justify-center p-1 shadow-xs mx-auto sm:mx-0 flex-shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-[#F8FAFC] border border-[#BFC5CE] flex items-center justify-center p-1 shadow-2xs mx-auto sm:mx-0 flex-shrink-0">
                         <img
                           src={c.imageUrl}
                           alt={c.name}
@@ -456,9 +471,9 @@ export default function AdminCategoriesPage() {
                       </div>
                     </td>
 
-                    {/* PLACES (Pill Badge matching Image 1) */}
+                    {/* PLACES (Pill Badge matching brand theme) */}
                     <td className="px-6 py-4.5 text-center">
-                      <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-200 shadow-2xs">
+                      <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold bg-red-50 text-[#E31E24] border border-red-200 shadow-2xs">
                         {(c.productCount ?? 0) > 0 ? `${c.productCount}+` : "0"}
                       </span>
                     </td>
@@ -470,7 +485,8 @@ export default function AdminCategoriesPage() {
                       </span>
                     </td>
                   </tr>
-                ))}
+                );
+              })}
               </tbody>
             </table>
           </div>
@@ -480,8 +496,8 @@ export default function AdminCategoriesPage() {
       {/* ── Add / Edit Category Modal ── */}
       {modalMode && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-300 rounded-2xl p-6 max-w-lg w-full shadow-2xl">
-            <div className="flex items-center justify-between border-b border-gray-200 pb-4 mb-4">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl p-6 max-w-lg w-full shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#C5C9D0] pb-4 mb-4">
               <h3 className="text-base font-bold text-gray-900">
                 {modalMode === "create" ? "Add Category" : `Edit "${activeCategory?.name}"`}
               </h3>
@@ -507,7 +523,7 @@ export default function AdminCategoriesPage() {
                   }}
                   placeholder="e.g. Smart Watches"
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
@@ -521,7 +537,7 @@ export default function AdminCategoriesPage() {
                   onChange={(e) => setFormSlug(e.target.value)}
                   placeholder="smartwatches"
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 font-mono focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 font-mono focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
@@ -535,7 +551,7 @@ export default function AdminCategoriesPage() {
                   onChange={(e) => setFormImageUrl(e.target.value)}
                   placeholder="https://images.unsplash.com/..."
                   required
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
@@ -548,16 +564,16 @@ export default function AdminCategoriesPage() {
                   onChange={(e) => setFormDesc(e.target.value)}
                   placeholder="Brief merchandising description..."
                   rows={3}
-                  className="w-full px-3.5 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                  className="w-full px-3.5 py-2 text-sm bg-white border border-[#BFC5CE] rounded-lg text-gray-900 focus:outline-none focus:border-[#111827] focus:ring-1 focus:ring-[#111827]"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#C5C9D0]">
                 <button
                   type="button"
                   onClick={() => setModalMode(null)}
                   disabled={saving}
-                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-gray-300 transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-[#BFC5CE] transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -577,7 +593,7 @@ export default function AdminCategoriesPage() {
       {/* ── Archive Confirmation Modal ── */}
       {deleteTarget && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white border border-gray-300 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+          <div className="bg-white border border-[#AEB6C2] rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-4">
               <Archive size={22} />
             </div>
@@ -592,7 +608,7 @@ export default function AdminCategoriesPage() {
                 type="button"
                 onClick={() => setDeleteTarget(null)}
                 disabled={deleting}
-                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-gray-300 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 border border-[#BFC5CE] transition-colors cursor-pointer"
               >
                 Cancel
               </button>

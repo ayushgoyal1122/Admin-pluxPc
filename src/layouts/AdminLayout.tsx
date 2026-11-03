@@ -17,6 +17,9 @@ import {
   ShoppingCart,
   Tag,
   Sliders,
+  DollarSign,
+  ShieldCheck,
+  FileText,
 } from "lucide-react";
 import { useAdminAuth } from "../context/AdminAuthContext";
 
@@ -93,8 +96,26 @@ export default function AdminLayout() {
     if (path.startsWith("/admin/subcategories")) {
       return { section: "Catalog", page: "Sub Categories" };
     }
+    if (path.includes("/manage-earning")) {
+      return { section: "Orders & Sales", page: "Manage Earning" };
+    }
+    if (path.includes("/view-user")) {
+      return { section: "Customers", page: "User Details" };
+    }
     if (path.includes("/platform-fee")) {
       return { section: "Settings", page: "Platform Fee" };
+    }
+    if (path.includes("/admin/blogs/new")) {
+      return { section: "Content", page: "Create Article" };
+    }
+    if (path.includes("/admin/blogs/") && path.includes("/edit")) {
+      return { section: "Content", page: "Edit Article" };
+    }
+    if (path.startsWith("/admin/blogs")) {
+      return { section: "Content", page: "Blog Posts" };
+    }
+    if (path.includes("/audit-logs")) {
+      return { section: "System", page: "Audit Logs" };
     }
     return { section: "Overview", page: "Dashboard" };
   }, [location.pathname]);
@@ -133,6 +154,7 @@ export default function AdminLayout() {
       title: "Orders & Sales",
       items: [
         { label: "Orders", to: "/admin/orders", icon: ShoppingCart, end: true },
+        { label: "Manage Earning", to: "/admin/manage-earning", icon: DollarSign, end: true },
         { label: "Promo Codes & Discounts", to: "/admin/promo-codes", icon: Tag, end: true },
       ],
     },
@@ -146,9 +168,17 @@ export default function AdminLayout() {
       ],
     },
     {
+      title: "Content",
+      items: [
+        { label: "Blog Posts", to: "/admin/blogs", icon: FileText, end: true },
+        { label: "Add Article", to: "/admin/blogs/new", icon: PlusCircle, end: true },
+      ],
+    },
+    {
       title: "Settings",
       items: [
         { label: "Platform Fee", to: "/admin/settings/platform-fee", icon: Sliders, end: true },
+        { label: "Audit Logs", to: "/admin/audit-logs", icon: ShieldCheck, end: true },
       ],
     },
   ];
@@ -159,14 +189,14 @@ export default function AdminLayout() {
       <aside
         id="admin-sidebar"
         aria-label="Admin Navigation Sidebar"
-        className={`hidden md:flex flex-col bg-[#F1F3F5] border-r border-gray-200 flex-shrink-0 h-screen z-20 transition-all duration-200 ease-in-out ${
+        className={`hidden md:flex flex-col bg-[#F1F3F5] border-r border-[#AEB6C2] flex-shrink-0 h-screen z-20 transition-all duration-200 ease-in-out ${
           isCollapsed ? "w-20" : "w-64"
         }`}
       >
         {/* Brand / Logo + Collapse Toggle */}
         <div
-          className={`h-16 flex items-center border-b border-gray-200 px-4 bg-[#F1F3F5] transition-all ${
-            isCollapsed ? "justify-center" : "justify-between"
+          className={`h-16 flex items-center border-b border-[#C5C9D0] px-4 bg-[#F1F3F5] transition-all ${
+            isCollapsed ? "justify-center" : "justify-start"
           }`}
         >
           <Link
@@ -187,43 +217,13 @@ export default function AdminLayout() {
                   alt="PLUXPC logo"
                   className="h-7 w-auto max-w-[110px] object-contain"
                 />
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-300 uppercase tracking-wide whitespace-nowrap">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-[#BFC5CE] uppercase tracking-wide whitespace-nowrap">
                   ADMIN
                 </span>
               </div>
             )}
           </Link>
-
-          {!isCollapsed && (
-            <button
-              onClick={toggleSidebar}
-              type="button"
-              className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 cursor-pointer"
-              aria-label="Collapse sidebar"
-              aria-expanded="true"
-              aria-controls="admin-sidebar"
-            >
-              <PanelLeftClose size={18} />
-            </button>
-          )}
         </div>
-
-        {/* When collapsed: single expand button right under header */}
-        {isCollapsed && (
-          <div className="pt-2 px-2 flex justify-center">
-            <button
-              onClick={toggleSidebar}
-              type="button"
-              className="p-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 cursor-pointer"
-              aria-label="Expand sidebar"
-              aria-expanded="false"
-              aria-controls="admin-sidebar"
-              title="Expand sidebar"
-            >
-              <PanelLeftOpen size={18} />
-            </button>
-          </div>
-        )}
 
         {/* Grouped Sidebar Navigation */}
         <nav className="flex-1 px-3 py-4 space-y-5 overflow-y-auto">
@@ -234,7 +234,7 @@ export default function AdminLayout() {
                   {group.title}
                 </p>
               ) : (
-                <div className="my-2 border-t border-gray-100" />
+                <div className="my-2 border-t border-[#D1D5DB]" />
               )}
 
               {group.items.map((item) => {
@@ -252,7 +252,7 @@ export default function AdminLayout() {
                           : "gap-3 px-3 py-2.5"
                       } ${
                         isActive
-                          ? "bg-white text-[#E31E24] font-bold shadow-xs border border-gray-200/90"
+                          ? "bg-white text-[#E31E24] font-bold shadow-xs border border-[#BFC5CE]"
                           : "text-gray-700 hover:text-gray-950 hover:bg-white/80"
                       }`
                     }
@@ -267,14 +267,14 @@ export default function AdminLayout() {
         </nav>
 
         {/* Bottom Sidebar Footer: View Store & Administrator Profile */}
-        <div className="p-3 border-t border-gray-200 bg-[#F1F3F5] space-y-2">
+        <div className="p-3 border-t border-[#C5C9D0] bg-[#F1F3F5] space-y-2">
           {/* View Store Button (redirects to main website) */}
           <a
             href="http://localhost:5173"
             target="_blank"
             rel="noopener noreferrer"
             title="View Store"
-            className={`w-full flex items-center rounded-lg bg-white border border-gray-200/90 text-gray-700 hover:text-[#E31E24] hover:border-[#E31E24]/30 hover:bg-white shadow-2xs text-xs font-semibold transition-all cursor-pointer ${
+            className={`w-full flex items-center rounded-lg bg-white border border-[#BFC5CE] text-gray-700 hover:text-[#E31E24] hover:border-[#E31E24]/30 hover:bg-white shadow-2xs text-xs font-semibold transition-all cursor-pointer ${
               isCollapsed ? "justify-center p-2.5" : "gap-2.5 px-3 py-2"
             }`}
           >
@@ -283,7 +283,7 @@ export default function AdminLayout() {
           </a>
 
           <div
-            className={`flex items-center rounded-lg bg-white border border-gray-200/90 shadow-2xs transition-all ${
+            className={`flex items-center rounded-lg bg-white border border-[#BFC5CE] shadow-2xs transition-all ${
               isCollapsed ? "justify-center p-2" : "justify-between p-2.5"
             }`}
           >
@@ -335,7 +335,7 @@ export default function AdminLayout() {
             className="relative w-72 max-w-[85vw] bg-[#F1F3F5] h-full shadow-2xl flex flex-col z-50 transition-transform duration-200"
           >
             {/* Drawer Header */}
-            <div className="h-16 px-4 flex items-center justify-between border-b border-gray-200 bg-[#F1F3F5]">
+            <div className="h-16 px-4 flex items-center justify-between border-b border-[#C5C9D0] bg-[#F1F3F5]">
               <Link
                 to="/admin/dashboard"
                 onClick={() => setMobileMenuOpen(false)}
@@ -346,7 +346,7 @@ export default function AdminLayout() {
                   alt="PLUXPC logo"
                   className="h-7 w-auto max-w-[110px] object-contain"
                 />
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-300 uppercase tracking-wide">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-[#BFC5CE] uppercase tracking-wide">
                   ADMIN
                 </span>
               </Link>
@@ -378,7 +378,7 @@ export default function AdminLayout() {
                         className={({ isActive }) =>
                           `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                             isActive
-                              ? "bg-white text-[#E31E24] font-bold shadow-xs border border-gray-200/90"
+                              ? "bg-white text-[#E31E24] font-bold shadow-xs border border-[#BFC5CE]"
                               : "text-gray-700 hover:text-gray-950 hover:bg-white/80"
                           }`
                         }
@@ -393,19 +393,19 @@ export default function AdminLayout() {
             </nav>
 
             {/* Drawer Footer: View Store, User Profile & Logout */}
-            <div className="p-4 border-t border-gray-200 bg-[#F1F3F5] space-y-2.5">
+            <div className="p-4 border-t border-[#C5C9D0] bg-[#F1F3F5] space-y-2.5">
               <a
                 href="http://localhost:5173"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="View Store"
-                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white border border-gray-200/90 text-gray-700 hover:text-[#E31E24] shadow-2xs text-xs font-semibold transition-all cursor-pointer"
+                className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg bg-white border border-[#BFC5CE] text-gray-700 hover:text-[#E31E24] shadow-2xs text-xs font-semibold transition-all cursor-pointer"
               >
                 <ExternalLink size={15} className="flex-shrink-0 text-[#E31E24]" />
                 <span>View Store</span>
               </a>
 
-              <div className="flex items-center justify-between p-2.5 rounded-lg bg-white border border-gray-200/90 shadow-2xs">
+              <div className="flex items-center justify-between p-2.5 rounded-lg bg-white border border-[#BFC5CE] shadow-2xs">
                 <div className="flex items-center gap-2 overflow-hidden">
                   <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-700 flex items-center justify-center font-bold text-xs flex-shrink-0">
                     <User size={15} />
@@ -432,7 +432,7 @@ export default function AdminLayout() {
       {/* ── Main Layout Column ── */}
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         {/* ── Top Header Navigation Bar ── */}
-        <header className="h-16 bg-white border-b border-gray-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30 shadow-xs flex-shrink-0">
+        <header className="h-16 bg-white border-b border-[#AEB6C2] px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-30 shadow-xs flex-shrink-0">
           {/* Left: Mobile trigger / Sidebar toggle & Breadcrumbs */}
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Mobile drawer trigger */}
@@ -469,22 +469,10 @@ export default function AdminLayout() {
             </nav>
           </div>
 
-          {/* Right: Storefront Link, Admin Info, Logout */}
+          {/* Right: Admin Info, Logout */}
           <div className="flex items-center gap-2.5 sm:gap-3">
-            {/* Storefront Link button (Preserved as requested) */}
-            <a
-              href="http://localhost:5173"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open Live Storefront in new tab"
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors shadow-xs"
-            >
-              <ExternalLink size={13} />
-              <span>Storefront</span>
-            </a>
-
             {/* Admin Badge */}
-            <div className="flex items-center gap-2 pl-2 border-l border-gray-200">
+            <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs">
                 {admin?.name?.charAt(0) || "A"}
               </div>

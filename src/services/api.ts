@@ -1,7 +1,7 @@
 // ─── Admin API Service Layer ──────────────────────────────────────────────────
 // Dedicated API client for PLUXPC Admin Portal communicating with Express API.
 
-import type { Product, Category, ApiResponse, PlatformFeeInput } from "../types";
+import type { Product, Category, ApiResponse, PlatformFeeInput, AuditLogRecord, AuditLogStats, AuditLogQueryParams, AuditLogListResponse, Blog, BlogInput, BlogStats, BlogAdminListResponse } from "../types";
 
 export const DEFAULT_PRODUCTION_API_URL = "https://pluxpc-api.onrender.com";
 
@@ -13,14 +13,21 @@ export const DEFAULT_PRODUCTION_API_URL = "https://pluxpc-api.onrender.com";
  */
 export function resolveBaseUrl(): string {
   const env = (typeof import.meta !== "undefined" && (import.meta as any).env) || {};
-  const envUrl = (env.VITE_API_URL || "").trim();
+  const processEnv = (typeof globalThis !== "undefined" && (globalThis as any).process?.env) || {};
+  const envUrl = (env.VITE_API_URL || processEnv.VITE_API_URL || "").trim();
   if (envUrl) {
     return envUrl.replace(/\/+$/, "");
   }
-  if (env.PROD) {
-    return DEFAULT_PRODUCTION_API_URL;
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return "http://localhost:5000";
+    }
   }
-  return "";
+  if (env.DEV) {
+    return "";
+  }
+  return DEFAULT_PRODUCTION_API_URL;
 }
 
 const BASE_URL = resolveBaseUrl();
@@ -477,6 +484,120 @@ export async function adminUpdatePlatformFeeSettings(data: PlatformFeeInput) {
 export async function adminTogglePlatformFee() {
   return apiFetch("/api/admin/settings/platform-fee/toggle", {
     method: "PATCH",
+    headers: authHeaders(),
+  });
+}
+
+// ── Manage Earning & User Details API ──
+export async function adminGetEarnings(params?: { q?: string; page?: number; limit?: number }) {
+  const query = new URLSearchParams();
+  if (params?.q) query.set("q", params.q);
+  if (params?.page) query.set("page", String(params.page));
+  if (params?.limit) query.set("limit", String(params.limit));
+
+  const qs = query.toString();
+  return apiFetch(`/api/admin/earnings${qs ? `?${qs}` : ""}`, {
+    headers: authHeaders(),
+  });
+}
+
+export async function adminGetUserDetails(userId: string) {
+  return apiFetch(`/api/admin/earnings/users/${encodeURIComponent(userId)}`, {
+    headers: authHeaders(),
+  });
+}
+
+// ── Audit Logs API ──
+export async function adminGetAuditLogs(params?: AuditLogQueryParams): Promise<AuditLogListResponse> {
+  const query = new URLSearchParams();
+  if (params?.page) query.set("page", String(params.page));
+  if (params?.limit) query.set("limit", String(params.limit));
+  if (params?.q) query.set("q", params.q);
+  if (params?.module && params.module !== "all") query.set("module", params.module);
+  if (params?.action && params.action !== "all") query.set("action", params.action);
+  if (params?.role && params.role !== "all") query.set("role", params.role);
+  if (params?.startDate) query.set("startDate", params.startDate);
+  if (params?.endDate) query.set("endDate", params.endDate);
+  if (params?.tab && params.tab !== "all") query.set("tab", params.tab);
+
+  const qs = query.toString();
+  return apiFetch(`/api/admin/audit-logs${qs ? `?${qs}` : ""}`, {
+    headers: authHeaders(),
+  });
+}
+
+export async function adminGetAuditLogStats(): Promise<{ success: boolean; stats: AuditLogStats }> {
+  return apiFetch("/api/admin/audit-logs/stats", {
+    headers: authHeaders(),
+  });
+}
+
+export async function adminGetAuditLogById(id: string): Promise<{ success: boolean; log: AuditLogRecord }> {
+  return apiFetch(`/api/admin/audit-logs/${encodeURIComponent(id)}`, {
+    headers: authHeaders(),
+  });
+}
+
+// ── Blog Management APIs ──
+export async function adminGetBlogStats(): Promise<{ success: boolean; stats: BlogStats }> {
+  return apiFetch("/api/admin/blogs/stats", {
+    headers: authHeaders(),
+  });
+}
+
+export async function adminGetBlogs(params?: {
+  page?: number;
+  limit?: number;
+  status?: string;
+  category?: string;
+  q?: string;
+}): Promise<BlogAdminListResponse> {
+  const query = new URLSearchParams();
+  if (params?.page) query.set("page", String(params.page));
+  if (params?.limit) query.set("limit", String(params.limit));
+  if (params?.status && params.status !== "all") query.set("status", params.status);
+  if (params?.category && params.category !== "all") query.set("category", params.category);
+  if (params?.q) query.set("q", params.q);
+
+  const qs = query.toString();
+  return apiFetch(`/api/admin/blogs${qs ? `?${qs}` : ""}`, {
+    headers: authHeaders(),
+  });
+}
+
+export async function adminGetBlogById(id: string): Promise<{ success: boolean; blog: Blog }> {
+  return apiFetch(`/api/admin/blogs/${encodeURIComponent(id)}`, {
+    headers: authHeaders(),
+  });
+}
+
+export async function adminCreateBlog(data: BlogInput): Promise<{ success: boolean; blog: Blog; message?: string }> {
+  return apiFetch("/api/admin/blogs", {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify(data),
+  });
+}
+
+export async function adminUpdateBlog(id: string, data: Partial<BlogInput>): Promise<{ success: boolean; blog: Blog; message?: string }> {
+  return apiFetch(`/api/admin/blogs/${encodeURIComponent(id)}`, {
+    method: "PUT",
+    headers: authHeaders(),
+    body: JSON.stringify(data),
+  });
+}
+
+export async function adminToggleBlogStatus(id: string, status: "draft" | "published"): Promise<{ success: boolean; blog: Blog; message?: string }> {
+  return apiFetch(`/api/admin/blogs/${encodeURIComponent(id)}/status`, {
+    method: "PATCH",
+    headers: authHeaders(),
+    body: JSON.stringify({ status }),
+  });
+}
+
+export async function adminDeleteBlog(id: string): Promise<{ success: boolean; message?: string }> {
+  return apiFetch(`/api/admin/blogs/${encodeURIComponent(id)}`, {
+    method: "DELETE",
     headers: authHeaders(),
   });
 }
