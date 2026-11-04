@@ -531,4 +531,24 @@ export interface BlogAdminListResponse {
   totalPages: number;
 }
 
+export interface LegalPage {
+  _id?: string;
+  id?: string;
+  slug: "terms-and-conditions" | "privacy-policy";
+  title: string;
+  content: string;
+  status: "published" | "draft";
+  characterCount: number;
+  lastUpdatedBy?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface LegalPageInput {
+  title: string;
+  content: string;
+  status: "published" | "draft";
+}
+
+
 

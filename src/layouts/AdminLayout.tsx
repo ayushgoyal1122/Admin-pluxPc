@@ -20,6 +20,7 @@ import {
   DollarSign,
   ShieldCheck,
   FileText,
+  ScrollText,
 } from "lucide-react";
 import { useAdminAuth } from "../context/AdminAuthContext";
 
@@ -114,6 +115,9 @@ export default function AdminLayout() {
     if (path.startsWith("/admin/blogs")) {
       return { section: "Content", page: "Blog Posts" };
     }
+    if (path.startsWith("/admin/legal")) {
+      return { section: "Content", page: "Manage Legal Content" };
+    }
     if (path.includes("/audit-logs")) {
       return { section: "System", page: "Audit Logs" };
     }
@@ -172,6 +176,7 @@ export default function AdminLayout() {
       items: [
         { label: "Blog Posts", to: "/admin/blogs", icon: FileText, end: true },
         { label: "Add Article", to: "/admin/blogs/new", icon: PlusCircle, end: true },
+        { label: "Legal Content", to: "/admin/legal", icon: ScrollText, end: true },
       ],
     },
     {

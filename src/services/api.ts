@@ -1,7 +1,7 @@
 // ─── Admin API Service Layer ──────────────────────────────────────────────────
 // Dedicated API client for PLUXPC Admin Portal communicating with Express API.
 
-import type { Product, Category, ApiResponse, PlatformFeeInput, AuditLogRecord, AuditLogStats, AuditLogQueryParams, AuditLogListResponse, Blog, BlogInput, BlogStats, BlogAdminListResponse } from "../types";
+import type { Product, Category, ApiResponse, PlatformFeeInput, AuditLogRecord, AuditLogStats, AuditLogQueryParams, AuditLogListResponse, Blog, BlogInput, BlogStats, BlogAdminListResponse, LegalPage, LegalPageInput } from "../types";
 
 export const DEFAULT_PRODUCTION_API_URL = "https://pluxpc-api.onrender.com";
 
@@ -599,6 +599,31 @@ export async function adminDeleteBlog(id: string): Promise<{ success: boolean; m
   return apiFetch(`/api/admin/blogs/${encodeURIComponent(id)}`, {
     method: "DELETE",
     headers: authHeaders(),
+  });
+}
+
+// ─── Legal Content Management API ──────────────────────────────────────────
+
+export async function getAdminLegalPages(): Promise<{ success: boolean; count: number; pages: LegalPage[] }> {
+  return apiFetch("/api/admin/legal", {
+    headers: authHeaders(),
+  });
+}
+
+export async function getAdminLegalPage(slug: string): Promise<{ success: boolean; page: LegalPage }> {
+  return apiFetch(`/api/admin/legal/${encodeURIComponent(slug)}`, {
+    headers: authHeaders(),
+  });
+}
+
+export async function updateAdminLegalPage(
+  slug: string,
+  data: LegalPageInput
+): Promise<{ success: boolean; message?: string; page: LegalPage }> {
+  return apiFetch(`/api/admin/legal/${encodeURIComponent(slug)}`, {
+    method: "PUT",
+    headers: authHeaders(),
+    body: JSON.stringify(data),
   });
 }
 

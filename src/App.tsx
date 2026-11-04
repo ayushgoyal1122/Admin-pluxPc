@@ -16,6 +16,7 @@ import AdminUserDetailsPage from "./pages/AdminUserDetailsPage";
 import AdminAuditLogsPage from "./pages/AdminAuditLogsPage";
 import AdminBlogsPage from "./pages/AdminBlogsPage";
 import AdminBlogFormPage from "./pages/AdminBlogFormPage";
+import AdminLegalContentPage from "./pages/AdminLegalContentPage";
 
 /**
  * Root landing page resolver:
@@ -82,6 +83,7 @@ export function AppRoutes() {
         <Route path="blogs" element={<AdminBlogsPage />} />
         <Route path="blogs/new" element={<AdminBlogFormPage />} />
         <Route path="blogs/:id/edit" element={<AdminBlogFormPage />} />
+        <Route path="legal" element={<AdminLegalContentPage />} />
       </Route>
 
       {/* Catch-all redirect back to root resolver */}
