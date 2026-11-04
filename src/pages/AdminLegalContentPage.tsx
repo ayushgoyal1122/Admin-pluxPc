@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback, type ReactNode } from "react";
 import {
   FileText,
   Save,
@@ -15,8 +15,6 @@ import {
   List,
   ListOrdered,
   Heading,
-  Link2,
-  Minus,
   ExternalLink,
 } from "lucide-react";
 import { getAdminLegalPage, updateAdminLegalPage } from "../services/api";
@@ -163,13 +161,122 @@ export default function AdminLegalContentPage() {
   const formatBulletList = () => handleInsertText("- ", "", "List item");
   const formatNumberedList = () => handleInsertText("1. ", "", "List item");
   const formatParagraph = () => handleInsertText("\n\n", "", "New paragraph text");
-  const formatHeading = () => handleInsertText("## ", "", "Section Heading");
-  const formatDivider = () => handleInsertText("\n---\n", "", "");
-  const formatLink = () => {
-    const url = prompt("Enter link URL (e.g., https://example.com or mailto:support@pluxpc.com):", "https://");
-    if (url) {
-      handleInsertText("[", `](${url})`, "Link label");
+  // Heading action with smart line/selection detection & toggle
+  const formatHeading = () => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selected = content.substring(start, end);
+
+    // Find the start and end of the current line
+    const lineStart = content.lastIndexOf("\n", start - 1) + 1;
+    let lineEnd = content.indexOf("\n", end);
+    if (lineEnd === -1) lineEnd = content.length;
+
+    const currentLine = content.substring(lineStart, lineEnd);
+    const trimmedLine = currentLine.trim();
+
+    // ── CASE 1: Text IS selected ──
+    if (selected.length > 0) {
+      // Check if the selection spans the entire line (or most of it)
+      const isFullLine =
+        content.substring(lineStart, start).trim() === "" &&
+        content.substring(end, lineEnd).trim() === "";
+
+      if (isFullLine) {
+        // Toggle or convert the full line
+        if (/^##\s+/.test(trimmedLine)) {
+          // Already an H2 heading -> toggle off
+          const unheaded = currentLine.replace(/^(\s*)##\s+/, "$1");
+          const newContent = content.substring(0, lineStart) + unheaded + content.substring(lineEnd);
+          handleContentChange(newContent);
+          setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(lineStart, lineStart + unheaded.trim().length);
+          }, 0);
+          return;
+        }
+
+        // Convert existing heading (# or ###) or plain line to ##
+        const cleaned = trimmedLine.replace(/^#{1,6}\s+/, "");
+        const newHeading = `## ${cleaned}`;
+        const newContent = content.substring(0, lineStart) + newHeading + content.substring(lineEnd);
+        handleContentChange(newContent);
+        setTimeout(() => {
+          textarea.focus();
+          textarea.setSelectionRange(lineStart, lineStart + newHeading.length);
+        }, 0);
+        return;
+      }
+
+      // Selection is a phrase/segment within a line:
+      // Requirement 4: "Do not insert ## in the middle of an existing sentence."
+      // Isolate the selected text onto its own heading line!
+      const prefixNewline = lineStart < start && content.substring(lineStart, start).trim() !== "" ? "\n\n" : "";
+      const suffixNewline = end < lineEnd && content.substring(end, lineEnd).trim() !== "" ? "\n\n" : "";
+      const cleanSelected = selected.replace(/^#{1,6}\s+/, "").trim();
+      const replacement = `${prefixNewline}## ${cleanSelected}${suffixNewline}`;
+      const newContent = content.substring(0, start) + replacement + content.substring(end);
+
+      handleContentChange(newContent);
+      setTimeout(() => {
+        textarea.focus();
+        const headingStart = start + prefixNewline.length;
+        const headingEnd = headingStart + 3 + cleanSelected.length;
+        textarea.setSelectionRange(headingStart, headingEnd);
+      }, 0);
+      return;
     }
+
+    // ── CASE 2: NO text is selected ──
+    // Subcase 2A: Current line is empty -> Insert placeholder heading
+    if (trimmedLine === "") {
+      const placeholder = "Section Heading";
+      const replacement = `## ${placeholder}`;
+      const newContent = content.substring(0, lineStart) + replacement + content.substring(lineEnd);
+
+      handleContentChange(newContent);
+      setTimeout(() => {
+        textarea.focus();
+        // Highlight placeholder text so user can immediately type over it
+        const selStart = lineStart + 3; // right after "## "
+        const selEnd = selStart + placeholder.length;
+        textarea.setSelectionRange(selStart, selEnd);
+      }, 0);
+      return;
+    }
+
+    // Subcase 2B: Current line already has text -> Convert current line into heading
+    // Requirement 2: "Ensure clicking H converts the current line or selected text into a proper heading."
+    // Requirement 4: "Do not insert ## in the middle of an existing sentence."
+    if (/^##\s+/.test(trimmedLine)) {
+      // Toggle off existing heading
+      const unheaded = currentLine.replace(/^(\s*)##\s+/, "$1");
+      const newContent = content.substring(0, lineStart) + unheaded + content.substring(lineEnd);
+      const cursorOffset = Math.max(lineStart, start - 3);
+
+      handleContentChange(newContent);
+      setTimeout(() => {
+        textarea.focus();
+        textarea.setSelectionRange(cursorOffset, cursorOffset);
+      }, 0);
+      return;
+    }
+
+    // Line has text and is not ## -> Convert line to ##
+    const cleaned = trimmedLine.replace(/^#{1,6}\s+/, "");
+    const newHeading = `## ${cleaned}`;
+    const newContent = content.substring(0, lineStart) + newHeading + content.substring(lineEnd);
+    const addedChars = newHeading.length - currentLine.length;
+    const newCursor = Math.min(newContent.length, start + addedChars);
+
+    handleContentChange(newContent);
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(newCursor, newCursor);
+    }, 0);
   };
 
   // Save changes handler
@@ -246,6 +353,94 @@ export default function AdminLegalContentPage() {
       if (!confirmSwitch) return;
     }
     setActiveTab(slug);
+  };
+
+  // Inline formatting renderer for Live Preview mode
+  const renderInlinePreview = (text: string): ReactNode => {
+    const tokens = text.split(
+      /(\[.+?\]\(.+?\)|\*\*\*.+?\*\*\*|___.+?___|\*\*.+?\*\*|__.+?__|~~.+?~~|<u>.+?<\/u>|`[^`]+?`|\*[^*]+?\*|_[^_]+?_)/g
+    );
+
+    return tokens.map((token, i) => {
+      if (!token) return null;
+
+      const linkMatch = token.match(/^\[(.+?)\]\((.+?)\)$/);
+      if (linkMatch) {
+        return (
+          <a
+            key={i}
+            href={linkMatch[2]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E31E24] hover:underline font-semibold"
+          >
+            {renderInlinePreview(linkMatch[1])}
+          </a>
+        );
+      }
+
+      if (
+        (token.startsWith("***") && token.endsWith("***") && token.length > 6) ||
+        (token.startsWith("___") && token.endsWith("___") && token.length > 6)
+      ) {
+        return (
+          <strong key={i} className="font-bold text-gray-950">
+            <em className="italic">{token.slice(3, -3)}</em>
+          </strong>
+        );
+      }
+
+      if (
+        (token.startsWith("**") && token.endsWith("**") && token.length > 4) ||
+        (token.startsWith("__") && token.endsWith("__") && token.length > 4)
+      ) {
+        return (
+          <strong key={i} className="font-bold text-gray-950">
+            {token.slice(2, -2)}
+          </strong>
+        );
+      }
+
+      if (token.startsWith("~~") && token.endsWith("~~") && token.length > 4) {
+        return (
+          <del key={i} className="line-through text-gray-500">
+            {token.slice(2, -2)}
+          </del>
+        );
+      }
+
+      if (token.startsWith("<u>") && token.endsWith("</u>") && token.length > 7) {
+        return (
+          <span key={i} className="underline decoration-gray-400 underline-offset-2">
+            {token.slice(3, -4)}
+          </span>
+        );
+      }
+
+      if (token.startsWith("`") && token.endsWith("`") && token.length > 2) {
+        return (
+          <code
+            key={i}
+            className="px-1.5 py-0.5 rounded bg-gray-100 text-[#E31E24] font-mono text-xs font-medium"
+          >
+            {token.slice(1, -1)}
+          </code>
+        );
+      }
+
+      if (
+        (token.startsWith("*") && token.endsWith("*") && token.length > 2) ||
+        (token.startsWith("_") && token.endsWith("_") && token.length > 2)
+      ) {
+        return (
+          <em key={i} className="italic text-gray-800">
+            {token.slice(1, -1)}
+          </em>
+        );
+      }
+
+      return token;
+    });
   };
 
   return (
@@ -489,25 +684,6 @@ export default function AdminLegalContentPage() {
 
               <button
                 type="button"
-                onClick={formatLink}
-                title="Insert Link"
-                className="p-1.5 rounded-md hover:bg-gray-200/80 text-gray-700 hover:text-gray-950 border border-transparent hover:border-gray-300 transition-colors"
-              >
-                <Link2 size={14} />
-              </button>
-              <button
-                type="button"
-                onClick={formatDivider}
-                title="Horizontal Rule (-)"
-                className="p-1.5 rounded-md hover:bg-gray-200/80 text-gray-700 hover:text-gray-950 border border-transparent hover:border-gray-300 transition-colors"
-              >
-                <Minus size={14} />
-              </button>
-
-              <div className="h-4 w-px bg-gray-300 mx-1" />
-
-              <button
-                type="button"
                 onClick={handleUndo}
                 disabled={historyIndex <= 0}
                 title="Undo"
@@ -552,13 +728,24 @@ export default function AdminLegalContentPage() {
                   {content.split("\n").map((line, idx) => {
                     const trimmed = line.trim();
 
+                    if (trimmed.startsWith("# ")) {
+                      return (
+                        <h1
+                          key={idx}
+                          className="text-xl sm:text-2xl font-extrabold text-gray-950 mt-6 mb-3 pb-2 border-b border-gray-200"
+                        >
+                          {renderInlinePreview(trimmed.replace(/^#\s+/, ""))}
+                        </h1>
+                      );
+                    }
+
                     if (trimmed.startsWith("## ")) {
                       return (
                         <h2
                           key={idx}
                           className="text-lg sm:text-xl font-extrabold text-gray-900 mt-6 mb-2 pb-1 border-b border-gray-200"
                         >
-                          {trimmed.replace(/^##\s+/, "")}
+                          {renderInlinePreview(trimmed.replace(/^##\s+/, ""))}
                         </h2>
                       );
                     }
@@ -566,7 +753,7 @@ export default function AdminLegalContentPage() {
                     if (trimmed.startsWith("### ")) {
                       return (
                         <h3 key={idx} className="text-base font-bold text-gray-800 mt-4 mb-1">
-                          {trimmed.replace(/^###\s+/, "")}
+                          {renderInlinePreview(trimmed.replace(/^###\s+/, ""))}
                         </h3>
                       );
                     }
@@ -577,7 +764,7 @@ export default function AdminLegalContentPage() {
                           key={idx}
                           className="my-3 p-3.5 border-l-4 border-[#E31E24] bg-red-50 text-gray-800 italic rounded-r-lg text-xs sm:text-sm"
                         >
-                          {trimmed.replace(/^>\s+/, "")}
+                          {renderInlinePreview(trimmed.replace(/^>\s+/, ""))}
                         </blockquote>
                       );
                     }
@@ -585,7 +772,7 @@ export default function AdminLegalContentPage() {
                     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
                       return (
                         <li key={idx} className="ml-5 list-disc text-xs sm:text-sm text-gray-700 leading-relaxed">
-                          {trimmed.substring(2)}
+                          {renderInlinePreview(trimmed.substring(2))}
                         </li>
                       );
                     }
@@ -593,7 +780,7 @@ export default function AdminLegalContentPage() {
                     if (/^\d+\.\s+/.test(trimmed)) {
                       return (
                         <li key={idx} className="ml-5 list-decimal text-xs sm:text-sm text-gray-700 leading-relaxed">
-                          {trimmed.replace(/^\d+\.\s+/, "")}
+                          {renderInlinePreview(trimmed.replace(/^\d+\.\s+/, ""))}
                         </li>
                       );
                     }
@@ -608,7 +795,7 @@ export default function AdminLegalContentPage() {
 
                     return (
                       <p key={idx} className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                        {trimmed}
+                        {renderInlinePreview(trimmed)}
                       </p>
                     );
                   })}
