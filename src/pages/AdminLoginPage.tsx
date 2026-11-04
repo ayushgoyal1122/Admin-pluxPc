@@ -141,12 +141,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* MongoDB Atlas Security Badge */}
-          <div className="mt-6 pt-5 border-t border-[#C5C9D0] flex items-center justify-between text-xs text-[#6B7280]">
-            <span>Security</span>
-            <span className="font-medium text-[#374151]">BCrypt &bull; JWT Auth Protected</span>
-          </div>
         </div>
 
         {/* Back to Storefront Link */}
